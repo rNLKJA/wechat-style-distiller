@@ -1,0 +1,49 @@
+# ────────────────────────────────────────────────────────────
+#  PRIVACY FIREWALL — never commit personal chat data or secrets
+# ────────────────────────────────────────────────────────────
+# Raw + processed WeChat data (the "dataset" stays local, always)
+data/
+!data/README.md
+
+# Generated personal artifacts (your real profile / prompt / dataset).
+# Ignore everything in output/ EXCEPT the sample artifacts built from fake data.
+output/*
+!output/samples/
+output/samples/dataset.jsonl   # the dataset stays local, even for the sample
+
+# Decrypted databases & exports of any kind
+*.db
+*.sqlite
+*.sqlite3
+*.csv
+*.jsonl
+*.ndjson
+chatlog_export/
+exports/
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.key
+
+# ── Python ──
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# ── OS / editor ──
+.DS_Store
+.idea/
+.vscode/
+*.swp

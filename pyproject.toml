@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wechat-style-distiller"
+version = "0.1.0"
+description = "Turn your own WeChat history into a style profile and a persona prompt that lets an LLM reply like you."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "rNLKJA" }]
+keywords = ["wechat", "nlp", "llm", "persona", "chat-analysis"]
+dependencies = []
+
+[project.optional-dependencies]
+full = ["jieba>=0.42.1", "anthropic>=0.40.0"]
+dev = ["pytest>=8.0", "ruff>=0.6"]
+
+[project.scripts]
+wechat-style-distiller = "wechat_style_distiller.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100

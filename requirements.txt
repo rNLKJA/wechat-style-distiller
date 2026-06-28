@@ -1,0 +1,4 @@
+# Core pipeline runs on the Python standard library alone.
+# These are optional enhancements:
+jieba>=0.42.1        # better Chinese phrase mining (falls back to char-ngrams)
+anthropic>=0.40.0    # LLM voice summary + the chatbot (needs ANTHROPIC_API_KEY)
