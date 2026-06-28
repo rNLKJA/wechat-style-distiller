@@ -117,3 +117,20 @@ def test_reasoning_markers_detected():
 
     assert evaluate.reasoning_marker_rate(["为什么这么做", "有什么依据吗"]) == 1.0
     assert evaluate.reasoning_marker_rate(["好的", "哈哈哈"]) == 0.0
+
+
+def test_register_split_separates_groups_and_one_on_one():
+    from wechat_style_distiller import registers
+
+    msgs = _sample_messages()
+    turns = clean.build_turns(msgs)
+    buckets = registers.classify_turns(turns)
+    assert set(buckets) == {"groups", "one_on_one"}
+    assert all(t.is_group for t in buckets["groups"])
+    assert all(not t.is_group for t in buckets["one_on_one"])
+
+    usable = registers.usable_registers(buckets)
+    assert usable  # the sample is large enough for both
+    # explicit mapping path
+    mapped = registers.classify_turns(turns, {"Leo_wxid": "close"})
+    assert "close" in mapped and "other" in mapped

@@ -14,9 +14,10 @@ from __future__ import annotations
 import argparse
 import sys
 
-from . import extract, clean, analyze as analyze_mod, distill as distill_mod
+from . import extract, clean, analyze as analyze_mod, distill as distill_mod, registers as reg_mod
 from .chatbot import run_chat
 from .config import load_thinking_profile
+from .prompts import build_persona_prompt, build_style_profile_md
 
 
 def _build(messages, out, name, use_llm, thinking_profile=None):
@@ -37,7 +38,34 @@ def _build(messages, out, name, use_llm, thinking_profile=None):
     )
     for label, path in paths.items():
         print(f"  wrote {label:14s} {path}", file=sys.stderr)
-    return paths
+    return turns, exchanges, paths
+
+
+def _build_registers(turns, exchanges, out, name, thinking_profile, mapping):
+    """Write one persona prompt + profile per usable register."""
+    from pathlib import Path
+
+    out = Path(out)
+    buckets = reg_mod.usable_registers(reg_mod.classify_turns(turns, mapping))
+    if not buckets:
+        print("  (no register has enough turns to model)", file=sys.stderr)
+        return
+    for rname, rturns in buckets.items():
+        rstats = analyze_mod.analyze(rturns)
+        rex = [
+            e for e in exchanges
+            if reg_mod.register_of(e.talker, e.is_group, mapping) == rname
+        ]
+        desc = reg_mod.REGISTER_DESCRIPTIONS.get(rname, rname)
+        persona = build_persona_prompt(
+            rstats, rex, name=name, thinking_profile=thinking_profile
+        )
+        header = f"# Register: {rname} — {desc}\n\n"
+        (out / f"persona_prompt.{rname}.txt").write_text(persona, encoding="utf-8")
+        (out / f"profile.{rname}.md").write_text(
+            header + build_style_profile_md(rstats), encoding="utf-8"
+        )
+        print(f"  wrote register '{rname}' ({len(rturns)} turns)", file=sys.stderr)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -60,6 +88,16 @@ def main(argv: list[str] | None = None) -> int:
              "then .example.json). Use --no-thinking to disable.",
     )
     run.add_argument("--no-thinking", action="store_true", help="don't layer in a thinking profile")
+    run.add_argument(
+        "--by-register", action="store_true",
+        help="also write a separate persona prompt per register (groups vs one-on-one, "
+             "or per --register-map)",
+    )
+    run.add_argument(
+        "--register-map", default=None,
+        help="JSON file mapping talker ids to register names, e.g. "
+             '{"sunny_wxid": "close", "boss_wxid": "work"}',
+    )
 
     chat = sub.add_parser("chat", help="chat in your voice")
     chat.add_argument("--persona", default="output/persona_prompt.txt")
@@ -83,7 +121,16 @@ def main(argv: list[str] | None = None) -> int:
             print(f"Loading {args.input}...", file=sys.stderr)
             messages = extract.load_json_file(args.input)
         profile = None if args.no_thinking else load_thinking_profile(args.thinking_profile)
-        _build(messages, args.out, args.name, use_llm=not args.no_llm, thinking_profile=profile)
+        turns, exchanges, _ = _build(
+            messages, args.out, args.name, use_llm=not args.no_llm, thinking_profile=profile
+        )
+        if args.by_register:
+            import json as _json
+
+            mapping = None
+            if args.register_map:
+                mapping = _json.loads(open(args.register_map, encoding="utf-8").read())
+            _build_registers(turns, exchanges, args.out, args.name, profile, mapping)
         return 0
 
     if args.cmd == "chat":

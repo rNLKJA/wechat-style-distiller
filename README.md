@@ -80,6 +80,24 @@ frequency, laughter tokens (哈哈 / 233 / hhh), Chinese↔English code-switchin
 ratio, punctuation tics, opener/closer habits, catchphrases, active hours, and
 per-contact tone differences.
 
+## You don't text everyone the same (registers)
+
+Add `--by-register` to write a separate persona prompt per register, because
+your work-group voice isn't your close-friend voice:
+
+```bash
+# default: splits group chats vs one-on-one
+python -m wechat_style_distiller.cli run --input data/raw/chatlog.json --out output --by-register
+
+# or define your own registers by contact
+echo '{"sunny_wxid": "close", "boss_wxid": "work"}' > config/register_map.json
+python -m wechat_style_distiller.cli run --from-api --out output \
+  --by-register --register-map config/register_map.json
+```
+
+You get `persona_prompt.close.txt`, `persona_prompt.work.txt`, etc. Registers
+with too few messages to model are skipped.
+
 ## Is it actually you? (alignment)
 
 "Aligned with how I talk" is a claim, so the tool measures it instead of
