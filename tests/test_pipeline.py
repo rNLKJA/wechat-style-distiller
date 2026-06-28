@@ -64,3 +64,27 @@ def test_persona_prompt_is_built():
     assert "Sample User" in prompt
     assert "<example>" in prompt
     assert len(prompt) > 200
+    # without a thinking profile, the reasoning section must not appear
+    assert "How you think" not in prompt
+
+
+def test_thinking_profile_is_layered_in():
+    from wechat_style_distiller import config
+
+    msgs = _sample_messages()
+    turns = clean.build_turns(msgs)
+    mine = clean.my_turns(turns)
+    stats = analyze.analyze(mine)
+    ex = clean.build_exchanges(turns)
+
+    profile = config.load_thinking_profile(
+        ROOT / "config" / "thinking_profile.example.json"
+    )
+    assert profile and "reasoning_style" in profile
+
+    prompt = prompts.build_persona_prompt(
+        stats, ex, name="Sample User", thinking_profile=profile
+    )
+    assert "How you think" in prompt
+    assert "first principles" in prompt
+    assert "What you care about" in prompt

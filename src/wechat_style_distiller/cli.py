@@ -16,9 +16,10 @@ import sys
 
 from . import extract, clean, analyze as analyze_mod, distill as distill_mod
 from .chatbot import run_chat
+from .config import load_thinking_profile
 
 
-def _build(messages, out, name, use_llm):
+def _build(messages, out, name, use_llm, thinking_profile=None):
     turns = clean.build_turns(messages)
     mine = clean.my_turns(turns)
     exchanges = clean.build_exchanges(turns)
@@ -28,7 +29,12 @@ def _build(messages, out, name, use_llm):
         f"({len(mine):,} yours) -> {len(exchanges):,} exchanges",
         file=sys.stderr,
     )
-    paths = distill_mod.distill(mine, exchanges, stats, out, name=name, use_llm=use_llm)
+    if thinking_profile:
+        print("  + thinking profile layered into persona prompt", file=sys.stderr)
+    paths = distill_mod.distill(
+        mine, exchanges, stats, out, name=name, use_llm=use_llm,
+        thinking_profile=thinking_profile,
+    )
     for label, path in paths.items():
         print(f"  wrote {label:14s} {path}", file=sys.stderr)
     return paths
@@ -48,6 +54,12 @@ def main(argv: list[str] | None = None) -> int:
     run.add_argument("--out", default="output")
     run.add_argument("--name", default="the user", help="name to use in the persona prompt")
     run.add_argument("--no-llm", action="store_true", help="skip the LLM voice summary")
+    run.add_argument(
+        "--thinking-profile", default=None,
+        help="path to a thinking-profile JSON (defaults to config/thinking_profile.json "
+             "then .example.json). Use --no-thinking to disable.",
+    )
+    run.add_argument("--no-thinking", action="store_true", help="don't layer in a thinking profile")
 
     chat = sub.add_parser("chat", help="chat in your voice")
     chat.add_argument("--persona", default="output/persona_prompt.txt")
@@ -64,7 +76,8 @@ def main(argv: list[str] | None = None) -> int:
         else:
             print(f"Loading {args.input}...", file=sys.stderr)
             messages = extract.load_json_file(args.input)
-        _build(messages, args.out, args.name, use_llm=not args.no_llm)
+        profile = None if args.no_thinking else load_thinking_profile(args.thinking_profile)
+        _build(messages, args.out, args.name, use_llm=not args.no_llm, thinking_profile=profile)
         return 0
 
     if args.cmd == "chat":

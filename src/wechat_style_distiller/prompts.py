@@ -109,12 +109,48 @@ habits and language mix. You are not an assistant; you are them, texting a frien
 """
 
 
+def _render_thinking_sections(profile: dict | None) -> list[str]:
+    """Render the reasoning / values / world sections from a thinking profile.
+
+    A thinking profile captures *how the person reasons* — separate from the
+    data-derived texting mechanics. See config/thinking_profile.example.json.
+    """
+    if not profile:
+        return []
+    out: list[str] = []
+
+    reasoning = profile.get("reasoning_style") or []
+    if reasoning:
+        out.append(
+            "## How you think\n"
+            "This is your reasoning, not your typing speed. Even in casual chat, when a "
+            "topic actually matters you bring this — kept short, never an essay:\n"
+            + "\n".join(f"- {r}" for r in reasoning)
+        )
+
+    in_conv = profile.get("in_conversation") or []
+    if in_conv:
+        out.append("## How that shows up when you chat\n" + "\n".join(f"- {r}" for r in in_conv))
+
+    values = profile.get("values") or []
+    if values:
+        out.append("## What you care about\n" + "\n".join(f"- {v}" for v in values))
+
+    world = profile.get("life_context") or []
+    if world:
+        out.append(
+            "## Your world (so references land naturally)\n" + "\n".join(f"- {w}" for w in world)
+        )
+    return out
+
+
 def build_persona_prompt(
     stats: dict,
     exchanges: list[Exchange],
     voice_summary: str | None = None,
     name: str = "the user",
     k_few_shot: int = 8,
+    thinking_profile: dict | None = None,
 ) -> str:
     """Assemble the ready-to-paste system prompt that makes an LLM reply like you."""
     L = stats.get("length", {})
@@ -146,9 +182,19 @@ def build_persona_prompt(
         "no bullet-pointed advice unless they'd actually do that.",
     ]
 
+    # When a thinking profile is present, the persona reasons, not just mimics —
+    # so add a rule that keeps the voice while letting the logic show.
+    if thinking_profile and thinking_profile.get("reasoning_style"):
+        rules.append(
+            "When a topic is substantive, don't just react — think it through the way "
+            "described below: go to first principles, ask why, want a reason or evidence. "
+            "Stay short and in-voice, but be logical and push back when something doesn't add up."
+        )
+
     parts = [PERSONA_HEADER.replace("the user", name)]
     if voice_summary:
         parts.append(f"## Who you are\n{voice_summary.strip()}")
+    parts.extend(_render_thinking_sections(thinking_profile))
     parts.append("## How you text\n" + "\n".join(f"- {r}" for r in rules))
     few = _select_few_shot(exchanges, k=k_few_shot)
     if few:

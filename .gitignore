@@ -27,6 +27,9 @@ exports/
 !.env.example
 *.key
 
+# Your real thinking profile (the .example.json template stays public)
+config/thinking_profile.json
+
 # ── Python ──
 __pycache__/
 *.py[cod]

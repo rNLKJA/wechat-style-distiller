@@ -16,7 +16,8 @@ sample:
 demo: sample
 	python -m wechat_style_distiller.cli run \
 		--input examples/sample_chatlog.json \
-		--out output/samples --name "Sample User" --no-llm
+		--out output/samples --name "Sample User" --no-llm \
+		--thinking-profile config/thinking_profile.example.json
 
 test:
 	python -m pytest -q

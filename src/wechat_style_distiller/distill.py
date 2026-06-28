@@ -64,6 +64,7 @@ def distill(
     out_dir: str | Path,
     name: str = "the user",
     use_llm: bool = True,
+    thinking_profile: dict | None = None,
 ) -> dict[str, Path]:
     """Write all artifacts to `out_dir`; return a map of name -> path."""
     out = Path(out_dir)
@@ -72,7 +73,9 @@ def distill(
     voice = llm_voice_summary(my_turns) if use_llm else None
 
     profile_md = build_style_profile_md(stats, voice_summary=voice)
-    persona = build_persona_prompt(stats, exchanges, voice_summary=voice, name=name)
+    persona = build_persona_prompt(
+        stats, exchanges, voice_summary=voice, name=name, thinking_profile=thinking_profile
+    )
 
     paths = {
         "profile": out / "profile.md",
