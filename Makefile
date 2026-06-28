@@ -19,6 +19,11 @@ demo: sample
 		--out output/samples --name "Sample User" --no-llm \
 		--thinking-profile config/thinking_profile.example.json
 
+eval:
+	python -m wechat_style_distiller.cli eval \
+		--persona output/samples/persona_prompt.txt \
+		--stats output/samples/stats.json
+
 test:
 	python -m pytest -q
 

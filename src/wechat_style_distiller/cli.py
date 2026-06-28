@@ -65,6 +65,12 @@ def main(argv: list[str] | None = None) -> int:
     chat.add_argument("--persona", default="output/persona_prompt.txt")
     chat.add_argument("--model", default="claude-opus-4-8")
 
+    ev = sub.add_parser("eval", help="measure how well the persona prompt reproduces your voice")
+    ev.add_argument("--persona", default="output/persona_prompt.txt")
+    ev.add_argument("--stats", default="output/stats.json", help="target stats.json from a run")
+    ev.add_argument("--out", default=None, help="write the report here (else stdout)")
+    ev.add_argument("--model", default="claude-opus-4-8")
+
     args = parser.parse_args(argv)
 
     if args.cmd == "run":
@@ -82,6 +88,22 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.cmd == "chat":
         return run_chat(args.persona, model=args.model)
+
+    if args.cmd == "eval":
+        import json
+        from .evaluate import evaluate_prompt
+
+        stats = json.loads(open(args.stats, encoding="utf-8").read())
+        report, score = evaluate_prompt(args.persona, stats, model=args.model)
+        print(f"Overall alignment: {score['overall']}/100", file=sys.stderr)
+        if args.out:
+            from pathlib import Path
+
+            Path(args.out).write_text(report, encoding="utf-8")
+            print(f"wrote {args.out}", file=sys.stderr)
+        else:
+            print(report)
+        return 0
 
     return 1
 

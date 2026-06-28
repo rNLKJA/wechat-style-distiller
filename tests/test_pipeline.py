@@ -88,3 +88,32 @@ def test_thinking_profile_is_layered_in():
     assert "How you think" in prompt
     assert "first principles" in prompt
     assert "What you care about" in prompt
+
+
+def test_alignment_scorer_discriminates():
+    from wechat_style_distiller import evaluate
+
+    msgs = _sample_messages()
+    mine = clean.my_turns(clean.build_turns(msgs))
+    stats = analyze.analyze(mine)
+    target = evaluate.target_fingerprint(stats)
+
+    # your own replies should resemble your target far more than an assistant's
+    own = [t.text for t in mine]
+    assistant = [
+        "Certainly! I'd be happy to help you with that. Here are several options to consider.",
+        "Great question. Let me walk you through the key considerations step by step.",
+        "Of course. Below is a comprehensive overview of everything you need to know.",
+    ] * 10
+
+    own_score = evaluate.alignment_score(evaluate.fingerprint(own), target)["overall"]
+    bot_score = evaluate.alignment_score(evaluate.fingerprint(assistant), target)["overall"]
+    assert own_score > bot_score
+    assert own_score > 70  # own replies are essentially the target distribution
+
+
+def test_reasoning_markers_detected():
+    from wechat_style_distiller import evaluate
+
+    assert evaluate.reasoning_marker_rate(["为什么这么做", "有什么依据吗"]) == 1.0
+    assert evaluate.reasoning_marker_rate(["好的", "哈哈哈"]) == 0.0

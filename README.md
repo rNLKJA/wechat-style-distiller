@@ -80,6 +80,35 @@ frequency, laughter tokens (哈哈 / 233 / hhh), Chinese↔English code-switchin
 ratio, punctuation tics, opener/closer habits, catchphrases, active hours, and
 per-contact tone differences.
 
+## Is it actually you? (alignment)
+
+"Aligned with how I talk" is a claim, so the tool measures it instead of
+asserting it. The `eval` command fingerprints your style (length, emoji rate,
+laughter, code-switching, bubble bursts, punctuation) and scores how close the
+persona's replies sit to it, plus how often your reasoning voice (why / evidence)
+shows up:
+
+```bash
+python -m wechat_style_distiller.cli eval \
+  --persona output/persona_prompt.txt --stats output/stats.json \
+  --out output/alignment_report.md          # needs ANTHROPIC_API_KEY to generate replies
+```
+
+The scorer is validated offline: in tests, real-style replies score ~89/100
+against the target while a generic-assistant baseline scores ~28/100. Low-scoring
+features tell you exactly where the prompt still drifts, so each tuning pass is
+evidence-driven rather than vibes.
+
+## How you reason, not just how you type
+
+Short chat bubbles reveal *how you text* but not *how you think*. So reasoning
+style is authored once in `config/thinking_profile.json` (first-principles,
+fact-driven, why-seeking, reason-backed, logical) and layered into the persona
+prompt as its own sections. Copy
+[`config/thinking_profile.example.json`](config/thinking_profile.example.json)
+to `config/thinking_profile.json` (git-ignored) and edit. Disable with
+`--no-thinking`.
+
 ## Tests
 
 ```bash
