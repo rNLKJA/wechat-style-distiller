@@ -117,6 +117,22 @@ against the target while a generic-assistant baseline scores ~28/100. Low-scorin
 features tell you exactly where the prompt still drifts, so each tuning pass is
 evidence-driven rather than vibes.
 
+### Auto-tune
+
+`tune` closes the loop: it generates replies, scores them, finds the features
+that drift most, and appends targeted corrections to the prompt — each one
+citing the measured gap (e.g. *"replies running long, median ~55 vs your ~12,
+cut them shorter"*) — then repeats until the score plateaus or clears a threshold.
+
+```bash
+python -m wechat_style_distiller.cli tune \
+  --persona output/persona_prompt.txt --stats output/stats.json \
+  --rounds 3 --threshold 85 --out output/persona_prompt.tuned.txt   # needs ANTHROPIC_API_KEY
+```
+
+The correction logic is pure and unit-tested; only the generate-and-score step
+needs an API key.
+
 ## How you reason, not just how you type
 
 Short chat bubbles reveal *how you text* but not *how you think*. So reasoning

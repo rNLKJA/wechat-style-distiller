@@ -109,6 +109,14 @@ def main(argv: list[str] | None = None) -> int:
     ev.add_argument("--out", default=None, help="write the report here (else stdout)")
     ev.add_argument("--model", default="claude-opus-4-8")
 
+    tn = sub.add_parser("tune", help="auto-tune the persona prompt against the alignment score")
+    tn.add_argument("--persona", default="output/persona_prompt.txt")
+    tn.add_argument("--stats", default="output/stats.json")
+    tn.add_argument("--out", default="output/persona_prompt.tuned.txt")
+    tn.add_argument("--rounds", type=int, default=3)
+    tn.add_argument("--threshold", type=float, default=85.0)
+    tn.add_argument("--model", default="claude-opus-4-8")
+
     args = parser.parse_args(argv)
 
     if args.cmd == "run":
@@ -150,6 +158,25 @@ def main(argv: list[str] | None = None) -> int:
             print(f"wrote {args.out}", file=sys.stderr)
         else:
             print(report)
+        return 0
+
+    if args.cmd == "tune":
+        import json
+        from pathlib import Path
+        from .refine import auto_tune
+
+        stats = json.loads(open(args.stats, encoding="utf-8").read())
+        final, history = auto_tune(
+            args.persona, stats, rounds=args.rounds,
+            threshold=args.threshold, model=args.model,
+        )
+        if final is None:
+            print("Tuning needs ANTHROPIC_API_KEY (to generate + score replies).", file=sys.stderr)
+            return 1
+        Path(args.out).write_text(final, encoding="utf-8")
+        trail = " -> ".join(f"{h:.1f}" for h in history)
+        print(f"alignment over rounds: {trail}", file=sys.stderr)
+        print(f"wrote {args.out}", file=sys.stderr)
         return 0
 
     return 1

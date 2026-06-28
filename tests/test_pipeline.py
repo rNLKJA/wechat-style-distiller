@@ -134,3 +134,30 @@ def test_register_split_separates_groups_and_one_on_one():
     # explicit mapping path
     mapped = registers.classify_turns(turns, {"Leo_wxid": "close"})
     assert "close" in mapped and "other" in mapped
+
+
+def test_refine_corrections_are_directional_and_cited():
+    from wechat_style_distiller import refine
+
+    target = {
+        "median_len": 12, "p90_len": 25, "emoji_per_turn": 0.3, "laughter_per_turn": 0.2,
+        "latin_share": 0.1, "multi_bubble_share": 0.4, "end_punct_drop_rate": 0.6,
+    }
+    # candidate that's too long, too few emoji, too much English
+    candidate = dict(target, median_len=60, p90_len=120, emoji_per_turn=0.0, latin_share=0.9)
+    rules = refine.corrective_rules(target, candidate, threshold_pct=85)
+    blob = " ".join(rules)
+    assert "running long" in blob          # length correction, right direction
+    assert "more" in blob.lower() and "emoji" in blob.lower()
+    assert "vs your" in blob or "vs ~" in blob  # every rule cites the measured gap
+
+
+def test_refine_apply_is_idempotent():
+    from wechat_style_distiller import refine
+
+    base = "## How you text\n- be short\n\n## Now\nStay in character."
+    once = refine.apply_corrections(base, ["Cut them shorter."])
+    twice = refine.apply_corrections(once, ["Use more emoji."])
+    assert twice.count(refine._CALIB_HEADER) == 1   # only one calibration block
+    assert "Use more emoji." in twice and "Cut them shorter." not in twice
+    assert twice.rstrip().endswith("Stay in character.")  # ## Now stays last
