@@ -1,0 +1,133 @@
+{
+  "n_turns": 80,
+  "total_chars": 1504,
+  "length": {
+    "mean": 18.8,
+    "median": 18.0,
+    "p25": 10.0,
+    "p50": 18.0,
+    "p75": 22.0,
+    "p90": 36.0,
+    "max": 51.0
+  },
+  "bubbles_per_turn": {
+    "mean": 1.48,
+    "max": 3,
+    "multi_bubble_share": 0.375
+  },
+  "emoji": {
+    "unicode_per_turn": 0.438,
+    "top_unicode": [
+      ["🤔", 10],
+      ["👌", 7],
+      ["💻", 5],
+      ["☕", 4],
+      ["🚀", 3],
+      ["👍", 2],
+      ["🔥", 1],
+      ["😅", 1],
+      ["✨", 1],
+      ["😂", 1]
+    ],
+    "top_wechat_faces": []
+  },
+  "laughter_per_turn": 0.463,
+  "code_switching": {
+    "cjk_chars": 533,
+    "latin_words": 142,
+    "latin_share": 0.21
+  },
+  "punctuation": {
+    "ellipsis": 0,
+    "exclaim": 0,
+    "question": 6,
+    "tilde": 8,
+    "no_end_punct_turns": 73
+  },
+  "top_phrases": [
+    ["哈哈", 49],
+    ["一下", 11],
+    ["notebook", 10],
+    ["好的", 10],
+    ["push", 10],
+    ["我这", 9],
+    ["这边", 9],
+    ["边跑", 9],
+    ["跑着", 9],
+    ["着呢", 9],
+    ["ok", 9],
+    ["我先", 9],
+    ["先一", 9],
+    ["下代", 9],
+    ["代码", 9],
+    ["bug", 8],
+    ["fix", 8],
+    ["code", 8],
+    ["deadline", 7],
+    ["review", 7],
+    ["完了", 7],
+    ["了吗", 7],
+    ["嗯嗯", 7],
+    ["个我", 7],
+    ["我来", 7],
+    ["在的", 6],
+    ["要不", 6],
+    ["不我", 6],
+    ["们开", 6],
+    ["开个", 6]
+  ],
+  "top_openers": [
+    ["ok", 9],
+    ["push", 8],
+    ["notebook", 8],
+    ["deadline", 5],
+    ["code", 5],
+    ["bug", 5],
+    ["meeting", 4],
+    ["好的", 4],
+    ["baseline", 4],
+    ["sounds", 3],
+    ["model", 3],
+    ["在的", 2]
+  ],
+  "top_closers": [
+    ["哈哈", 18],
+    ["着呢", 5],
+    ["好的", 5],
+    ["了吗", 4],
+    ["代码", 4],
+    ["几点", 3],
+    ["对吧", 3],
+    ["上弄", 3],
+    ["个会", 3],
+    ["还行", 2],
+    ["可以", 2],
+    ["确实", 2]
+  ],
+  "active_hours_utc": {
+    "0": 15,
+    "1": 13,
+    "2": 15,
+    "3": 13,
+    "22": 11,
+    "23": 13
+  },
+  "by_contact": {
+    "friend_wxid": {
+      "is_group": false,
+      "n_turns": 27,
+      "avg_chars": 20.1
+    },
+    "group@chatroom": {
+      "is_group": true,
+      "n_turns": 27,
+      "avg_chars": 16.9
+    },
+    "colleague_wxid": {
+      "is_group": false,
+      "n_turns": 26,
+      "avg_chars": 19.4
+    }
+  },
+  "engine": "char-ngram"
+}

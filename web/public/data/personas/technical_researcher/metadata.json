@@ -1,0 +1,11 @@
+{
+  "id": "technical_researcher",
+  "name": "Technical Researcher",
+  "description": "EN-heavy code-switching, long analytical messages, minimal emoji, jargon",
+  "characteristics": {
+    "avgLength": 55,
+    "codeSwitchRatio": 0.7,
+    "emojiRate": 0.08,
+    "style": "academic"
+  }
+}

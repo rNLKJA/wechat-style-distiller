@@ -1,0 +1,127 @@
+{
+  "n_turns": 80,
+  "total_chars": 2513,
+  "length": {
+    "mean": 31.4,
+    "median": 30.0,
+    "p25": 18.0,
+    "p50": 30.0,
+    "p75": 42.0,
+    "p90": 55.0,
+    "max": 77.0
+  },
+  "bubbles_per_turn": {
+    "mean": 1.52,
+    "max": 3,
+    "multi_bubble_share": 0.45
+  },
+  "emoji": {
+    "unicode_per_turn": 0.225,
+    "top_unicode": [
+      ["👍", 6],
+      ["📊", 6],
+      ["✅", 4],
+      ["📝", 2]
+    ],
+    "top_wechat_faces": []
+  },
+  "laughter_per_turn": 0.512,
+  "code_switching": {
+    "cjk_chars": 713,
+    "latin_words": 249,
+    "latin_share": 0.259
+  },
+  "punctuation": {
+    "ellipsis": 0,
+    "exclaim": 0,
+    "question": 19,
+    "tilde": 0,
+    "no_end_punct_turns": 33
+  },
+  "top_phrases": [
+    ["哈哈", 53],
+    ["需要", 20],
+    ["一下", 19],
+    ["presentation", 16],
+    ["review", 16],
+    ["以分", 14],
+    ["分享", 14],
+    ["data", 14],
+    ["timeline", 12],
+    ["ll", 12],
+    ["proposal", 12],
+    ["讨论", 12],
+    ["update", 11],
+    ["享下", 11],
+    ["下最", 11],
+    ["最新", 11],
+    ["新的", 11],
+    ["的吗", 11],
+    ["align", 10],
+    ["priorities", 10],
+    ["时间", 10],
+    ["间安", 10],
+    ["安排", 10],
+    ["排上", 10],
+    ["上有", 10],
+    ["有些", 10],
+    ["些紧", 10],
+    ["紧张", 10],
+    ["值得", 10],
+    ["个方", 10]
+  ],
+  "top_openers": [
+    ["i", 11],
+    ["update", 10],
+    ["let", 7],
+    ["presentation", 7],
+    ["timeline", 7],
+    ["review", 7],
+    ["proposal", 5],
+    ["align", 4],
+    ["时间", 4],
+    ["could", 4],
+    ["这个", 3],
+    ["进度", 2]
+  ],
+  "top_closers": [
+    ["哈哈", 22],
+    ["一下", 10],
+    ["的吗", 5],
+    ["问题", 4],
+    ["紧张", 4],
+    ["presentation", 4],
+    ["data", 3],
+    ["调研", 3],
+    ["准备", 3],
+    ["探索", 3],
+    ["细节", 3],
+    ["讨论", 3]
+  ],
+  "active_hours_utc": {
+    "0": 14,
+    "1": 12,
+    "2": 15,
+    "3": 12,
+    "22": 13,
+    "23": 14
+  },
+  "by_contact": {
+    "friend_wxid": {
+      "is_group": false,
+      "n_turns": 31,
+      "avg_chars": 31.1
+    },
+    "colleague_wxid": {
+      "is_group": false,
+      "n_turns": 29,
+      "avg_chars": 33.3
+    },
+    "group@chatroom": {
+      "is_group": true,
+      "n_turns": 20,
+      "avg_chars": 29.2
+    }
+  },
+  "engine": "char-ngram"
+}

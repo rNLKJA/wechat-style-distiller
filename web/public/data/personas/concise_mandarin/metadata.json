@@ -1,0 +1,11 @@
+{
+  "id": "concise_mandarin",
+  "name": "Concise Mandarin",
+  "description": "ZH only, short messages (8-15 chars), rare emoji, formal punctuation",
+  "characteristics": {
+    "avgLength": 12,
+    "codeSwitchRatio": 0.0,
+    "emojiRate": 0.05,
+    "style": "formal_zh"
+  }
+}

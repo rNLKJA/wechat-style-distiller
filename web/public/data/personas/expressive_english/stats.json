@@ -1,0 +1,134 @@
+{
+  "n_turns": 80,
+  "total_chars": 3928,
+  "length": {
+    "mean": 49.1,
+    "median": 39.0,
+    "p25": 30.0,
+    "p50": 39.0,
+    "p75": 68.0,
+    "p90": 79.0,
+    "max": 122.0
+  },
+  "bubbles_per_turn": {
+    "mean": 1.56,
+    "max": 3,
+    "multi_bubble_share": 0.45
+  },
+  "emoji": {
+    "unicode_per_turn": 0.713,
+    "top_unicode": [
+      ["💪", 15],
+      ["💀", 10],
+      ["🥺", 9],
+      ["😂", 5],
+      ["💕", 5],
+      ["😭", 4],
+      ["🎉", 3],
+      ["✨", 2],
+      ["🔥", 2],
+      ["👀", 2]
+    ],
+    "top_wechat_faces": []
+  },
+  "laughter_per_turn": 0.65,
+  "code_switching": {
+    "cjk_chars": 90,
+    "latin_words": 752,
+    "latin_share": 0.893
+  },
+  "punctuation": {
+    "ellipsis": 8,
+    "exclaim": 54,
+    "question": 53,
+    "tilde": 0,
+    "no_end_punct_turns": 68
+  },
+  "top_phrases": [
+    ["哈哈", 64],
+    ["that", 54],
+    ["so", 25],
+    ["mean", 24],
+    ["what", 23],
+    ["this", 19],
+    ["wait", 18],
+    ["though", 17],
+    ["right", 14],
+    ["yeah", 12],
+    ["totally", 12],
+    ["get", 12],
+    ["exactly", 11],
+    ["was", 11],
+    ["thinking", 11],
+    ["yesss", 11],
+    ["got", 11],
+    ["are", 10],
+    ["serious", 10],
+    ["wild", 10],
+    ["ngl", 10],
+    ["pretty", 10],
+    ["impressive", 10],
+    ["actually", 9],
+    ["funny", 9],
+    ["aww", 8],
+    ["sweet", 8],
+    ["okay", 8],
+    ["here", 8],
+    ["thing", 8]
+  ],
+  "top_openers": [
+    ["wait", 13],
+    ["i", 10],
+    ["ngl", 8],
+    ["yesss", 6],
+    ["no", 5],
+    ["right", 5],
+    ["lmaooo", 5],
+    ["aww", 5],
+    ["ugh", 5],
+    ["that", 5],
+    ["oh", 4],
+    ["okay", 4]
+  ],
+  "top_closers": [
+    ["哈哈", 26],
+    ["this", 10],
+    ["wild", 7],
+    ["insane", 6],
+    ["impressive", 5],
+    ["mean", 5],
+    ["dead", 4],
+    ["thinking", 4],
+    ["feeling", 4],
+    ["though", 3],
+    ["sweet", 2],
+    ["happened", 2]
+  ],
+  "active_hours_utc": {
+    "0": 14,
+    "1": 15,
+    "2": 14,
+    "3": 13,
+    "4": 1,
+    "22": 9,
+    "23": 14
+  },
+  "by_contact": {
+    "colleague_wxid": {
+      "is_group": false,
+      "n_turns": 30,
+      "avg_chars": 48.6
+    },
+    "group@chatroom": {
+      "is_group": true,
+      "n_turns": 27,
+      "avg_chars": 53.8
+    },
+    "friend_wxid": {
+      "is_group": false,
+      "n_turns": 23,
+      "avg_chars": 44.2
+    }
+  },
+  "engine": "char-ngram"
+}

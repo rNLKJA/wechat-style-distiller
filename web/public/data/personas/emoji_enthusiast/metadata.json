@@ -1,0 +1,11 @@
+{
+  "id": "emoji_enthusiast",
+  "name": "Emoji Enthusiast",
+  "description": "ZH primary, heavy emoji (50%+ messages), short bursts, playful",
+  "characteristics": {
+    "avgLength": 18,
+    "codeSwitchRatio": 0.1,
+    "emojiRate": 0.6,
+    "style": "playful_zh"
+  }
+}
