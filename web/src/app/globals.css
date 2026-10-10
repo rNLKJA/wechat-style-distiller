@@ -33,3 +33,19 @@ body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
 }
+
+/* Enhanced focus indicators for accessibility */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--color-wechat-green);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Improved line-height for prose content */
+article,
+section,
+.prose {
+  line-height: 1.75;
+}

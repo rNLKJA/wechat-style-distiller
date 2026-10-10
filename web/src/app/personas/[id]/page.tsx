@@ -1,4 +1,6 @@
 import { notFound } from 'next/navigation';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 import { SiteHeader } from '@/components/layout/site-header';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { PERSONA_IDS } from '@/lib/personas';
@@ -10,25 +12,13 @@ interface PageProps {
 }
 
 async function loadPersonaData(id: string) {
-  const basePath = `/data/personas/${id}`;
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : 'http://localhost:3000';
-
   try {
-    const [metadataRes, statsRes, profileRes, promptRes] = await Promise.all([
-      fetch(`${baseUrl}${basePath}/metadata.json`, { cache: 'force-cache' }),
-      fetch(`${baseUrl}${basePath}/stats.json`, { cache: 'force-cache' }),
-      fetch(`${baseUrl}${basePath}/profile.md`, { cache: 'force-cache' }),
-      fetch(`${baseUrl}${basePath}/persona_prompt.txt`, { cache: 'force-cache' }),
-    ]);
+    const basePath = join(process.cwd(), 'public', 'data', 'personas', id);
 
-    if (!metadataRes.ok) return null;
-
-    const metadata = (await metadataRes.json()) as PersonaMetadata;
-    const stats = (await statsRes.json()) as PersonaStats;
-    const profile = await profileRes.text();
-    const prompt = await promptRes.text();
+    const metadata = JSON.parse(readFileSync(join(basePath, 'metadata.json'), 'utf8')) as PersonaMetadata;
+    const stats = JSON.parse(readFileSync(join(basePath, 'stats.json'), 'utf8')) as PersonaStats;
+    const profile = readFileSync(join(basePath, 'profile.md'), 'utf8');
+    const prompt = readFileSync(join(basePath, 'persona_prompt.txt'), 'utf8');
 
     return { metadata, stats, profile, prompt };
   } catch {
@@ -38,6 +28,22 @@ async function loadPersonaData(id: string) {
 
 export async function generateStaticParams() {
   return PERSONA_IDS.map((id) => ({ id }));
+}
+
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = await params;
+  const data = await loadPersonaData(id);
+
+  if (!data) {
+    return {
+      title: 'Persona Not Found',
+    };
+  }
+
+  return {
+    title: `${data.metadata.name} — WeChat Style Distiller`,
+    description: data.metadata.description,
+  };
 }
 
 export default async function PersonaDetailPage({ params }: PageProps) {

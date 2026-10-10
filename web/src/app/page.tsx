@@ -109,6 +109,16 @@ export default function Home() {
                   </p>
                 </div>
 
+                <p>
+                  <strong className="text-zinc-900 dark:text-zinc-100">Repository:</strong>{' '}
+                  <a
+                    href="https://github.com/rNLKJA/wechat-style-distiller"
+                    className="text-[--color-wechat-green] underline decoration-[--color-wechat-green]/30 underline-offset-2 transition-colors hover:decoration-[--color-wechat-green]"
+                  >
+                    github.com/rNLKJA/wechat-style-distiller
+                  </a>
+                </p>
+
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Link
                     href="https://github.com/rNLKJA/wechat-style-distiller"
