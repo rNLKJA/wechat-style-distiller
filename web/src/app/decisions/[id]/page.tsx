@@ -8,6 +8,7 @@ const DECISION_RECORDS: Record<string, string> = {
   '001': 'DR-001-local-first-architecture.md',
   '002': 'DR-002-synthetic-demo-data.md',
   '003': 'DR-003-feature-selection.md',
+  '004': 'DR-004-byok-architecture.md',
 };
 
 interface DecisionPageProps {
