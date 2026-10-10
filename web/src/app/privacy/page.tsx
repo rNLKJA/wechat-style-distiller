@@ -128,6 +128,119 @@ export default function PrivacyPage() {
               </div>
             </section>
 
+            {/* Privacy Threat Model */}
+            <section className="mb-16">
+              <h2 className="mb-6 text-2xl font-bold">Privacy Threat Model</h2>
+
+              <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
+                What the tool reads, what could leak, and how to mitigate risks.
+              </p>
+
+              <div className="space-y-6">
+                {/* What the Tool Reads */}
+                <div className="rounded-lg border bg-white p-6 dark:border-zinc-800 dark:bg-zinc-950">
+                  <h3 className="mb-3 font-semibold text-zinc-900 dark:text-zinc-100">
+                    What the Tool Reads
+                  </h3>
+                  <ul className="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <li>
+                      • <strong className="text-zinc-900 dark:text-zinc-100">WeChat database</strong>:
+                      Local SQLite file containing your message history (sender, timestamp, content, contact ID)
+                    </li>
+                    <li>
+                      • <strong className="text-zinc-900 dark:text-zinc-100">Message content</strong>:
+                      Full text of your messages to extract linguistic features
+                    </li>
+                    <li>
+                      • <strong className="text-zinc-900 dark:text-zinc-100">Contact metadata</strong>:
+                      Contact IDs and whether chats are group or 1:1 (names not read)
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Potential Leakage Vectors */}
+                <div className="rounded-lg border border-orange-300 bg-orange-50 p-6 dark:border-orange-900 dark:bg-orange-950">
+                  <h3 className="mb-3 font-semibold text-orange-900 dark:text-orange-100">
+                    Potential Leakage Vectors
+                  </h3>
+                  <ul className="space-y-2 text-sm text-orange-800 dark:text-orange-200">
+                    <li>
+                      • <strong>Screen-sharing the output</strong>: Profile or persona prompt may contain
+                      recognizable catchphrases or patterns
+                    </li>
+                    <li>
+                      • <strong>Committing data/ folders</strong>: If you accidentally commit output/ or data/
+                      folders, raw messages or stats could be exposed
+                    </li>
+                    <li>
+                      • <strong>Pasting persona prompts publicly</strong>: Unique linguistic markers
+                      (catchphrases, code-switching ratio) could identify you
+                    </li>
+                    <li>
+                      • <strong>BYOK chatbot history</strong>: If using the chatbot, your API provider
+                      (Anthropic/OpenAI) sees the persona prompt and your test messages
+                    </li>
+                    <li>
+                      • <strong>Shared machine access</strong>: Other users on the same machine could
+                      read generated files in output/ folders
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Mitigation Checklist */}
+                <div className="rounded-lg border border-[--color-wechat-green]/30 bg-[--color-wechat-green]/5 p-6">
+                  <h3 className="mb-3 font-semibold text-zinc-900 dark:text-zinc-100">
+                    Mitigation Checklist
+                  </h3>
+                  <ul className="space-y-2 text-sm text-zinc-700 dark:text-zinc-300">
+                    <li>
+                      ✓ <strong>Verify .gitignore</strong>: Ensure data/, output/, *.db are git-ignored
+                      before committing anything
+                    </li>
+                    <li>
+                      ✓ <strong>Review before sharing</strong>: Read profile.md and persona_prompt.txt
+                      before pasting or screen-sharing
+                    </li>
+                    <li>
+                      ✓ <strong>Strip identifiable phrases</strong>: Manually edit out unique catchphrases
+                      if sharing persona prompts publicly
+                    </li>
+                    <li>
+                      ✓ <strong>Use synthetic data for demos</strong>: When showcasing the tool, use
+                      synthetic personas (like this site does) instead of real profiles
+                    </li>
+                    <li>
+                      ✓ <strong>Limit BYOK usage</strong>: Only use the chatbot feature with prompts
+                      you&apos;re comfortable sending to your API provider
+                    </li>
+                    <li>
+                      ✓ <strong>Secure your machine</strong>: Use full-disk encryption and user account
+                      permissions to protect output files
+                    </li>
+                    <li>
+                      ✓ <strong>Check audit logs</strong>: Review the AI audit log at /ai-log to see
+                      exactly what was sent to API providers
+                    </li>
+                  </ul>
+                </div>
+
+                {/* What We Never Do */}
+                <div className="rounded-lg border bg-white p-6 dark:border-zinc-800 dark:bg-zinc-950">
+                  <h3 className="mb-3 font-semibold text-zinc-900 dark:text-zinc-100">
+                    What We Never Do
+                  </h3>
+                  <ul className="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <li>✗ Upload your data to our servers (we have no backend)</li>
+                    <li>✗ Store your API keys on our servers (stored in your browser only)</li>
+                    <li>✗ Send telemetry or analytics about your usage</li>
+                    <li>✗ Access your WeChat account or authenticate with WeChat servers</li>
+                    <li>✗ Read message content semantically (only surface linguistic features)</li>
+                    <li>✗ Share data between users (no cross-user data collection)</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
             {/* Demo Site Privacy */}
             <section className="rounded-lg border border-[--color-wechat-green]/30 bg-[--color-wechat-green]/5 p-8">
               <h2 className="mb-4 text-2xl font-bold">About This Demo Site</h2>

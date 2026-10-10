@@ -5,6 +5,11 @@
 data/
 !data/README.md
 
+# Exception: synthetic persona data for the web demo (not personal data)
+!web/public/data/
+web/public/data/*.db
+web/public/data/*.sqlite*
+
 # Generated personal artifacts (your real profile / prompt / dataset).
 # Ignore everything in output/ EXCEPT the sample artifacts built from fake data.
 output/*

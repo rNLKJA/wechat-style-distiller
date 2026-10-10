@@ -35,8 +35,11 @@ A **Next.js methodology showcase** that demonstrates how the tool works using **
 - **Feature validation**: Statistical analysis with confidence intervals, inter-persona variance
 - **Persona similarity**: Pairwise comparisons in 6D feature space (cosine similarity)
 - **Matching quiz**: "Which persona are you?" — 5-question matcher
+- **Prompt effectiveness testing**: Generate 10 responses per persona and analyze linguistic consistency (BYOK)
+- **Persona tuner**: Interactive parameter adjustment (formality, emoji, verbosity) with before/after comparison (BYOK)
+- **AI audit log**: Transparency log for all BYOK features with JSON/CSV export (stored client-side)
+- **Privacy threat model**: Detailed analysis of what could leak and mitigation checklist
 - **Methods & decision records**: Methodology, assumptions, limitations, and architectural decisions
-- **AI audit log**: Transparency log for optional BYOK features (stored client-side)
 - **Decision records**: DR-001 (local-first), DR-002 (synthetic data), DR-003 (feature selection)
 
 ---

@@ -156,3 +156,18 @@ export async function exportAuditLogAsCSV(): Promise<string> {
 
   return headers + rows;
 }
+
+/**
+ * Log an AI interaction (convenience function)
+ */
+export async function logAIInteraction(
+  params: Omit<AIAuditLogEntry, 'id' | 'timestamp'>
+): Promise<void> {
+  const entry: AIAuditLogEntry = {
+    id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    timestamp: Date.now(),
+    ...params,
+  };
+
+  return addAuditLogEntry(entry);
+}
