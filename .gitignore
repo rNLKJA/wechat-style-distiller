@@ -50,3 +50,9 @@ env/
 .idea/
 .vscode/
 *.swp
+# web build artifacts
+node_modules/
+.next/
+.vercel/
+out/
+*.tsbuildinfo
