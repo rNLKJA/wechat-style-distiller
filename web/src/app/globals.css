@@ -37,7 +37,7 @@ body {
 /* Enhanced focus indicators for accessibility */
 a:focus-visible,
 button:focus-visible,
-[role="button"]:focus-visible {
+[role='button']:focus-visible {
   outline: 2px solid var(--color-wechat-green);
   outline-offset: 2px;
   border-radius: 4px;

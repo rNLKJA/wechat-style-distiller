@@ -15,7 +15,9 @@ async function loadPersonaData(id: string) {
   try {
     const basePath = join(process.cwd(), 'public', 'data', 'personas', id);
 
-    const metadata = JSON.parse(readFileSync(join(basePath, 'metadata.json'), 'utf8')) as PersonaMetadata;
+    const metadata = JSON.parse(
+      readFileSync(join(basePath, 'metadata.json'), 'utf8')
+    ) as PersonaMetadata;
     const stats = JSON.parse(readFileSync(join(basePath, 'stats.json'), 'utf8')) as PersonaStats;
     const profile = readFileSync(join(basePath, 'profile.md'), 'utf8');
     const prompt = readFileSync(join(basePath, 'persona_prompt.txt'), 'utf8');
