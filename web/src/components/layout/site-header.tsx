@@ -93,10 +93,7 @@ export function SiteHeader() {
 
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
-        <nav
-          id="mobile-menu"
-          className="md:hidden border-t bg-white dark:bg-zinc-950"
-        >
+        <nav id="mobile-menu" className="md:hidden border-t bg-white dark:bg-zinc-950">
           <div className="container mx-auto px-4 py-4 flex flex-col gap-2">
             {navigation.map((item) => (
               <Link

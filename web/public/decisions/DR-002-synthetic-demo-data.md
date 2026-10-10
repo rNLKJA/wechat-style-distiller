@@ -62,14 +62,14 @@ Real chat data, even anonymized, carries re-identification risk:
 
 Generated 6 synthetic personas with diverse profiles:
 
-| Persona                  | Avg Length | Code-Switch | Emoji Rate | Style       |
-|--------------------------|------------|-------------|------------|-------------|
-| Bilingual Early Adopter  | 25 chars   | 40%         | 0.3/msg    | casual_tech |
-| Concise Mandarin         | 12 chars   | 0%          | 0.05/msg   | formal_zh   |
-| Expressive English       | 60 chars   | 100%        | 0.25/msg   | expressive  |
-| Balanced Bilingual       | 35 chars   | 50%         | 0.15/msg   | professional|
-| Emoji Enthusiast         | 18 chars   | 10%         | 0.6/msg    | playful_zh  |
-| Technical Researcher     | 55 chars   | 70%         | 0.08/msg   | academic    |
+| Persona                 | Avg Length | Code-Switch | Emoji Rate | Style        |
+| ----------------------- | ---------- | ----------- | ---------- | ------------ |
+| Bilingual Early Adopter | 25 chars   | 40%         | 0.3/msg    | casual_tech  |
+| Concise Mandarin        | 12 chars   | 0%          | 0.05/msg   | formal_zh    |
+| Expressive English      | 60 chars   | 100%        | 0.25/msg   | expressive   |
+| Balanced Bilingual      | 35 chars   | 50%         | 0.15/msg   | professional |
+| Emoji Enthusiast        | 18 chars   | 10%         | 0.6/msg    | playful_zh   |
+| Technical Researcher    | 55 chars   | 70%         | 0.08/msg   | academic     |
 
 The synthetic data spans the feature space well (verified by inter-persona variance analysis on `/validation`). Users can explore diverse linguistic patterns without any real privacy risk.
 

@@ -37,24 +37,29 @@ The goal is to distill a person's texting voice into a compact feature set that 
 Extract features that directly correspond to how people text:
 
 **Message Shape**:
+
 - Length distribution (mean, median, p25, p75, p90)
 - Bubble bursts (multiple messages in a row)
 - Turn-taking speed (time between messages)
 
 **Expressiveness**:
+
 - Emoji frequency + top emoji
 - Laughter tokens (哈哈, lol, 233, hhh)
 
 **Language**:
+
 - Code-switching ratio (EN/ZH)
 - Catchphrases (top n-grams)
 - Openers & closers (conversation patterns)
 
 **Punctuation**:
+
 - Ellipsis, exclamation, question marks, tildes
 - No-punctuation rate
 
 **Contextual**:
+
 - Active hours (time-of-day distribution)
 - Per-contact tone (avg length by recipient)
 
@@ -76,17 +81,17 @@ The 12-feature set successfully distinguishes synthetic personas (validated on `
 
 **Sample feature → instruction mappings** (from persona prompts):
 
-| Feature                          | Instruction                                                                 |
-|----------------------------------|-----------------------------------------------------------------------------|
-| Median 18 chars, p90 36 chars    | Keep replies short: median ~18 characters, rarely over 36                   |
-| 0.3 emoji/turn, top: 🤔👌💻      | ~0.3 emoji per message. Favourites: 🤔👌💻. Use sparingly.                  |
-| 40% code-switching, 21% Latin    | About 21% of words are English; drop English words in naturally             |
-| 1.5 bubbles/turn, 40% multi      | Natural to send 1.5 short bubbles in a row (separate with newlines)        |
-| 70% no end punctuation           | Often skip end punctuation                                                  |
+| Feature                       | Instruction                                                         |
+| ----------------------------- | ------------------------------------------------------------------- |
+| Median 18 chars, p90 36 chars | Keep replies short: median ~18 characters, rarely over 36           |
+| 0.3 emoji/turn, top: 🤔👌💻   | ~0.3 emoji per message. Favourites: 🤔👌💻. Use sparingly.          |
+| 40% code-switching, 21% Latin | About 21% of words are English; drop English words in naturally     |
+| 1.5 bubbles/turn, 40% multi   | Natural to send 1.5 short bubbles in a row (separate with newlines) |
+| 70% no end punctuation        | Often skip end punctuation                                          |
 
 **Limitations**:
 
-- No semantic content: Features capture *how* you text, not *what* you say (topics, opinions, knowledge). By design (privacy).
+- No semantic content: Features capture _how_ you text, not _what_ you say (topics, opinions, knowledge). By design (privacy).
 - No multi-turn structure: Features are turn-level aggregates. No conversational flow modeling (e.g., response latency, topic shifts).
 - No voice/tone inference: Subjective qualities (formality, warmth, sarcasm) are not directly measured.
 
