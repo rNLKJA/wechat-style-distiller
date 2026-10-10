@@ -126,11 +126,7 @@ export function AISettingsDialog({ isOpen, onClose, onSettingsChange }: AISettin
                 type={showKey ? 'text' : 'password'}
                 value={apiKey}
                 onChange={(e) => setApiKey(e.target.value)}
-                placeholder={
-                  provider === 'anthropic'
-                    ? 'sk-ant-api03-...'
-                    : 'sk-proj-...'
-                }
+                placeholder={provider === 'anthropic' ? 'sk-ant-api03-...' : 'sk-proj-...'}
                 className="w-full rounded-lg border border-zinc-300 px-4 py-2 pr-10 text-sm dark:border-zinc-700 dark:bg-zinc-900"
               />
               <button
@@ -192,7 +188,10 @@ export function AISettingsDialog({ isOpen, onClose, onSettingsChange }: AISettin
             <p className="font-medium text-yellow-900 dark:text-yellow-200">Security Notice</p>
             <ul className="mt-2 space-y-1 text-xs text-yellow-800 dark:text-yellow-300">
               <li>• Keys stored locally in your browser</li>
-              <li>• Calls go directly from your browser to {provider === 'anthropic' ? 'Anthropic' : 'OpenAI'}</li>
+              <li>
+                • Calls go directly from your browser to{' '}
+                {provider === 'anthropic' ? 'Anthropic' : 'OpenAI'}
+              </li>
               <li>• Our server never sees your key or prompts</li>
               <li>• All interactions logged in the AI audit trail</li>
             </ul>

@@ -17,11 +17,7 @@ interface TuningParams {
   verbosityDelta: number; // -2 to +2
 }
 
-const TEST_PROMPTS = [
-  'How was your day?',
-  'What are you working on?',
-  'Want to grab lunch?',
-];
+const TEST_PROMPTS = ['How was your day?', 'What are you working on?', 'Want to grab lunch?'];
 
 export default function PersonaTunerPage() {
   const [personas, setPersonas] = useState<Persona[]>([]);

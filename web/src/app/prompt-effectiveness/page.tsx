@@ -81,8 +81,7 @@ export default function PromptEffectivenessPage() {
   const selectedPersona = personas.find((p) => p.metadata.id === selectedPersonaId);
 
   const analyzeResponse = (text: string): IndividualAnalysis => {
-    const emojiRegex =
-      /[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}]/gu;
+    const emojiRegex = /[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}]/gu;
     const latinRegex = /[a-zA-Z]+/g;
     const laughterRegex = /(哈哈|haha|lol|233|hhh|笑)/gi;
 
@@ -248,7 +247,9 @@ export default function PromptEffectivenessPage() {
                   className="flex w-full items-center justify-center gap-2 rounded-lg bg-[--color-wechat-green] px-6 py-2 font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
                 >
                   {isGenerating ? (
-                    <>Generating {responses.length}/{NUM_RESPONSES}...</>
+                    <>
+                      Generating {responses.length}/{NUM_RESPONSES}...
+                    </>
                   ) : (
                     <>
                       <Play className="h-4 w-4" />
@@ -395,9 +396,7 @@ function MetricComparison({
       </div>
       <div
         className={`mt-2 text-xs font-medium ${
-          isClose
-            ? 'text-[--color-wechat-green]'
-            : 'text-zinc-600 dark:text-zinc-400'
+          isClose ? 'text-[--color-wechat-green]' : 'text-zinc-600 dark:text-zinc-400'
         }`}
       >
         {diff > 0 ? '+' : ''}

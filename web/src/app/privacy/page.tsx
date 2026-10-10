@@ -144,16 +144,20 @@ export default function PrivacyPage() {
                   </h3>
                   <ul className="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
                     <li>
-                      • <strong className="text-zinc-900 dark:text-zinc-100">WeChat database</strong>:
-                      Local SQLite file containing your message history (sender, timestamp, content, contact ID)
+                      •{' '}
+                      <strong className="text-zinc-900 dark:text-zinc-100">WeChat database</strong>:
+                      Local SQLite file containing your message history (sender, timestamp, content,
+                      contact ID)
                     </li>
                     <li>
-                      • <strong className="text-zinc-900 dark:text-zinc-100">Message content</strong>:
+                      •{' '}
+                      <strong className="text-zinc-900 dark:text-zinc-100">Message content</strong>:
                       Full text of your messages to extract linguistic features
                     </li>
                     <li>
-                      • <strong className="text-zinc-900 dark:text-zinc-100">Contact metadata</strong>:
-                      Contact IDs and whether chats are group or 1:1 (names not read)
+                      •{' '}
+                      <strong className="text-zinc-900 dark:text-zinc-100">Contact metadata</strong>
+                      : Contact IDs and whether chats are group or 1:1 (names not read)
                     </li>
                   </ul>
                 </div>
@@ -165,24 +169,24 @@ export default function PrivacyPage() {
                   </h3>
                   <ul className="space-y-2 text-sm text-orange-800 dark:text-orange-200">
                     <li>
-                      • <strong>Screen-sharing the output</strong>: Profile or persona prompt may contain
-                      recognizable catchphrases or patterns
+                      • <strong>Screen-sharing the output</strong>: Profile or persona prompt may
+                      contain recognizable catchphrases or patterns
                     </li>
                     <li>
-                      • <strong>Committing data/ folders</strong>: If you accidentally commit output/ or data/
-                      folders, raw messages or stats could be exposed
+                      • <strong>Committing data/ folders</strong>: If you accidentally commit
+                      output/ or data/ folders, raw messages or stats could be exposed
                     </li>
                     <li>
                       • <strong>Pasting persona prompts publicly</strong>: Unique linguistic markers
                       (catchphrases, code-switching ratio) could identify you
                     </li>
                     <li>
-                      • <strong>BYOK chatbot history</strong>: If using the chatbot, your API provider
-                      (Anthropic/OpenAI) sees the persona prompt and your test messages
+                      • <strong>BYOK chatbot history</strong>: If using the chatbot, your API
+                      provider (Anthropic/OpenAI) sees the persona prompt and your test messages
                     </li>
                     <li>
-                      • <strong>Shared machine access</strong>: Other users on the same machine could
-                      read generated files in output/ folders
+                      • <strong>Shared machine access</strong>: Other users on the same machine
+                      could read generated files in output/ folders
                     </li>
                   </ul>
                 </div>
@@ -194,16 +198,16 @@ export default function PrivacyPage() {
                   </h3>
                   <ul className="space-y-2 text-sm text-zinc-700 dark:text-zinc-300">
                     <li>
-                      ✓ <strong>Verify .gitignore</strong>: Ensure data/, output/, *.db are git-ignored
-                      before committing anything
+                      ✓ <strong>Verify .gitignore</strong>: Ensure data/, output/, *.db are
+                      git-ignored before committing anything
                     </li>
                     <li>
-                      ✓ <strong>Review before sharing</strong>: Read profile.md and persona_prompt.txt
-                      before pasting or screen-sharing
+                      ✓ <strong>Review before sharing</strong>: Read profile.md and
+                      persona_prompt.txt before pasting or screen-sharing
                     </li>
                     <li>
-                      ✓ <strong>Strip identifiable phrases</strong>: Manually edit out unique catchphrases
-                      if sharing persona prompts publicly
+                      ✓ <strong>Strip identifiable phrases</strong>: Manually edit out unique
+                      catchphrases if sharing persona prompts publicly
                     </li>
                     <li>
                       ✓ <strong>Use synthetic data for demos</strong>: When showcasing the tool, use
@@ -214,8 +218,8 @@ export default function PrivacyPage() {
                       you&apos;re comfortable sending to your API provider
                     </li>
                     <li>
-                      ✓ <strong>Secure your machine</strong>: Use full-disk encryption and user account
-                      permissions to protect output files
+                      ✓ <strong>Secure your machine</strong>: Use full-disk encryption and user
+                      account permissions to protect output files
                     </li>
                     <li>
                       ✓ <strong>Check audit logs</strong>: Review the AI audit log at /ai-log to see
