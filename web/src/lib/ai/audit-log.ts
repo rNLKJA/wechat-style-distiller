@@ -1,6 +1,7 @@
 /**
  * AI audit logging for transparency and compliance
- * Stores all AI interactions client-side in IndexedDB
+ * Stores all AI interactions client-side in IndexedDB.
+ * API keys are NEVER logged - only provider, model, input/output text, and usage metadata are stored.
  */
 
 export interface AIAuditLogEntry {

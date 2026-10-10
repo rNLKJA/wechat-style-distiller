@@ -10,15 +10,26 @@ import { loadAISettings, type AISettings } from '@/lib/ai/settings';
 import { callAI, type AIMessage } from '@/lib/ai/client';
 import { logAIInteraction } from '@/lib/ai/audit-log';
 import type { Persona, PersonaStats } from '@/lib/types';
+import { bootstrapCI, stats } from '@/lib/stats/confidence-intervals';
 
 const TEST_PROMPT = 'How was your day?';
 const NUM_RESPONSES = 10;
 
-interface ResponseAnalysis {
+interface IndividualAnalysis {
   avgLength: number;
   emojiCount: number;
   latinRatio: number;
   hasLaughter: boolean;
+}
+
+interface ResponseAnalysis {
+  avgLength: number;
+  avgLengthCI: [number, number];
+  emojiCount: number;
+  emojiCountCI: [number, number];
+  latinRatio: number;
+  latinRatioCI: [number, number];
+  laughterRate: number;
 }
 
 export default function PromptEffectivenessPage() {
@@ -69,7 +80,7 @@ export default function PromptEffectivenessPage() {
 
   const selectedPersona = personas.find((p) => p.metadata.id === selectedPersonaId);
 
-  const analyzeResponse = (text: string): Partial<ResponseAnalysis> => {
+  const analyzeResponse = (text: string): IndividualAnalysis => {
     const emojiRegex =
       /[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}]/gu;
     const latinRegex = /[a-zA-Z]+/g;
@@ -99,7 +110,7 @@ export default function PromptEffectivenessPage() {
     setAnalysis(null);
 
     const generatedResponses: string[] = [];
-    const analyses: Partial<ResponseAnalysis>[] = [];
+    const analyses: IndividualAnalysis[] = [];
 
     try {
       for (let i = 0; i < NUM_RESPONSES; i++) {
@@ -131,17 +142,25 @@ export default function PromptEffectivenessPage() {
         setResponses([...generatedResponses]);
       }
 
-      // Compute aggregate analysis
-      const totalLength = analyses.reduce((sum, a) => sum + (a.avgLength || 0), 0);
-      const totalEmoji = analyses.reduce((sum, a) => sum + (a.emojiCount || 0), 0);
-      const totalLatinRatio = analyses.reduce((sum, a) => sum + (a.latinRatio || 0), 0);
+      // Compute aggregate analysis with bootstrap confidence intervals
+      const lengths = analyses.map((a) => a.avgLength || 0);
+      const emojis = analyses.map((a) => a.emojiCount || 0);
+      const latins = analyses.map((a) => a.latinRatio || 0);
       const laughterCount = analyses.filter((a) => a.hasLaughter).length;
 
+      // Bootstrap CIs for continuous metrics (1000 resamples, seed for reproducibility)
+      const lengthCI = bootstrapCI(lengths, stats.mean, 1000, 0.95, 42);
+      const emojiCI = bootstrapCI(emojis, stats.mean, 1000, 0.95, 43);
+      const latinCI = bootstrapCI(latins, stats.mean, 1000, 0.95, 44);
+
       setAnalysis({
-        avgLength: totalLength / NUM_RESPONSES,
-        emojiCount: totalEmoji / NUM_RESPONSES,
-        latinRatio: totalLatinRatio / NUM_RESPONSES,
-        hasLaughter: laughterCount > NUM_RESPONSES / 2,
+        avgLength: stats.mean(lengths),
+        avgLengthCI: lengthCI,
+        emojiCount: stats.mean(emojis),
+        emojiCountCI: emojiCI,
+        latinRatio: stats.mean(latins),
+        latinRatioCI: latinCI,
+        laughterRate: laughterCount / NUM_RESPONSES,
       });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Generation failed');
@@ -264,24 +283,27 @@ export default function PromptEffectivenessPage() {
                     label="Avg Message Length"
                     target={selectedPersona.stats.length.mean}
                     actual={analysis.avgLength}
+                    ci={analysis.avgLengthCI}
                     unit="chars"
                   />
                   <MetricComparison
                     label="Emoji Rate"
                     target={selectedPersona.stats.emoji.unicode_per_turn}
                     actual={analysis.emojiCount}
+                    ci={analysis.emojiCountCI}
                     unit="/msg"
                   />
                   <MetricComparison
                     label="Latin Share"
                     target={selectedPersona.stats.code_switching.latin_share * 100}
                     actual={analysis.latinRatio * 100}
+                    ci={[analysis.latinRatioCI[0] * 100, analysis.latinRatioCI[1] * 100]}
                     unit="%"
                   />
                   <MetricComparison
                     label="Laughter Rate"
                     target={selectedPersona.stats.laughter_per_turn}
-                    actual={analysis.hasLaughter ? 0.6 : 0.1}
+                    actual={analysis.laughterRate}
                     unit="/msg"
                   />
                 </div>
@@ -344,11 +366,13 @@ function MetricComparison({
   target,
   actual,
   unit,
+  ci,
 }: {
   label: string;
   target: number;
   actual: number;
   unit: string;
+  ci?: [number, number];
 }) {
   const diff = actual - target;
   const percentDiff = target !== 0 ? (diff / target) * 100 : 0;
@@ -361,6 +385,11 @@ function MetricComparison({
         <span className="text-xl font-bold">{actual.toFixed(1)}</span>
         <span className="text-sm text-zinc-500">{unit}</span>
       </div>
+      {ci && (
+        <div className="mb-1 text-xs text-zinc-500">
+          95% CI: [{ci[0].toFixed(1)}, {ci[1].toFixed(1)}]
+        </div>
+      )}
       <div className="text-xs text-zinc-500">
         Target: {target.toFixed(1)} {unit}
       </div>
