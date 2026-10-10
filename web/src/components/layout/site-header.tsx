@@ -11,6 +11,10 @@ const navigation = [
   { name: 'Pipeline', href: '/pipeline' },
   { name: 'Personas', href: '/personas' },
   { name: 'Features', href: '/features' },
+  { name: 'Validation', href: '/validation' },
+  { name: 'Similarity', href: '/similarity' },
+  { name: 'Match Quiz', href: '/match-quiz' },
+  { name: 'Methods', href: '/methods' },
   { name: 'Privacy', href: '/privacy' },
   { name: 'Install', href: '/install' },
 ];
