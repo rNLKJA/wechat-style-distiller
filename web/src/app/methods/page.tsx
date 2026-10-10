@@ -26,8 +26,8 @@ export default function MethodsPage() {
 
               <div className="space-y-4 text-zinc-700 dark:text-zinc-300">
                 <p>
-                  <strong className="text-zinc-900 dark:text-zinc-100">Original Tool:</strong> Analyzes
-                  real WeChat chat history extracted via the{' '}
+                  <strong className="text-zinc-900 dark:text-zinc-100">Original Tool:</strong>{' '}
+                  Analyzes real WeChat chat history extracted via the{' '}
                   <a
                     href="https://github.com/qiqq/chatlog"
                     className="text-[--color-wechat-green] underline"
@@ -49,10 +49,10 @@ export default function MethodsPage() {
                 </p>
 
                 <p>
-                  <strong className="text-zinc-900 dark:text-zinc-100">Sample Sizes:</strong> Original
-                  tool works with any chat history size (tested 100–10,000 messages). Synthetic personas
-                  each have n=80–150 turns (a &quot;turn&quot; is one continuous sending block, which
-                  may contain multiple bubbles).
+                  <strong className="text-zinc-900 dark:text-zinc-100">Sample Sizes:</strong>{' '}
+                  Original tool works with any chat history size (tested 100–10,000 messages).
+                  Synthetic personas each have n=80–150 turns (a &quot;turn&quot; is one continuous
+                  sending block, which may contain multiple bubbles).
                 </p>
               </div>
             </section>
@@ -72,13 +72,13 @@ export default function MethodsPage() {
                 <ol className="list-decimal space-y-3 pl-6">
                   <li>
                     <strong className="text-zinc-900 dark:text-zinc-100">Extract:</strong> Read
-                    messages from WeChat SQLite database (or synthetic message list). Fields: sender,
-                    timestamp, content, contact ID, is_group.
+                    messages from WeChat SQLite database (or synthetic message list). Fields:
+                    sender, timestamp, content, contact ID, is_group.
                   </li>
                   <li>
                     <strong className="text-zinc-900 dark:text-zinc-100">Clean:</strong> Group
-                    consecutive messages from the same sender into turns. Filter out system messages,
-                    media-only bubbles (images, stickers without text).
+                    consecutive messages from the same sender into turns. Filter out system
+                    messages, media-only bubbles (images, stickers without text).
                   </li>
                   <li>
                     <strong className="text-zinc-900 dark:text-zinc-100">Analyze:</strong> For each
@@ -97,15 +97,15 @@ export default function MethodsPage() {
                         catchphrases (top n-grams), openers/closers
                       </li>
                       <li>
-                        <strong>Temporal:</strong> Active hours (UTC), per-contact tone (avg length by
-                        recipient)
+                        <strong>Temporal:</strong> Active hours (UTC), per-contact tone (avg length
+                        by recipient)
                       </li>
                     </ul>
                   </li>
                   <li>
-                    <strong className="text-zinc-900 dark:text-zinc-100">Distill:</strong> Map features
-                    to LLM instructions. E.g., &quot;median 18 chars, p90 36 chars&quot; → &quot;Keep
-                    replies short: median ~18 characters, rarely over 36&quot;. Generate{' '}
+                    <strong className="text-zinc-900 dark:text-zinc-100">Distill:</strong> Map
+                    features to LLM instructions. E.g., &quot;median 18 chars, p90 36 chars&quot; →
+                    &quot;Keep replies short: median ~18 characters, rarely over 36&quot;. Generate{' '}
                     <code className="rounded bg-zinc-100 px-2 py-1 text-sm dark:bg-zinc-900">
                       persona_prompt.txt
                     </code>{' '}
@@ -133,23 +133,27 @@ export default function MethodsPage() {
                     <strong className="text-zinc-900 dark:text-zinc-100">
                       Pairwise similarity:
                     </strong>{' '}
-                    Cosine similarity in 6D feature space. Lower values = more distinct persona pairs.
+                    Cosine similarity in 6D feature space. Lower values = more distinct persona
+                    pairs.
                   </li>
                   <li>
-                    <strong className="text-zinc-900 dark:text-zinc-100">Distinctiveness:</strong> For
-                    each persona, compute 1 - average similarity to all others. Higher = more unique
-                    profile.
+                    <strong className="text-zinc-900 dark:text-zinc-100">Distinctiveness:</strong>{' '}
+                    For each persona, compute 1 - average similarity to all others. Higher = more
+                    unique profile.
                   </li>
                   <li>
-                    <strong className="text-zinc-900 dark:text-zinc-100">Feature correlation:</strong>{' '}
-                    Pearson correlation matrix. Identifies which features co-vary (e.g., emoji rate vs
-                    code-switching).
+                    <strong className="text-zinc-900 dark:text-zinc-100">
+                      Feature correlation:
+                    </strong>{' '}
+                    Pearson correlation matrix. Identifies which features co-vary (e.g., emoji rate
+                    vs code-switching).
                   </li>
                 </ul>
 
                 <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                  All confidence intervals computed with bootstrap percentile method (1000 iterations,
-                  fixed seeds 42–47 for reproducibility). Wilson score intervals used for proportions.
+                  All confidence intervals computed with bootstrap percentile method (1000
+                  iterations, fixed seeds 42–47 for reproducibility). Wilson score intervals used
+                  for proportions.
                 </p>
               </div>
             </section>
@@ -160,12 +164,14 @@ export default function MethodsPage() {
 
               <div className="space-y-4 text-zinc-700 dark:text-zinc-300">
                 <div>
-                  <h3 className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">Assumptions</h3>
+                  <h3 className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">
+                    Assumptions
+                  </h3>
                   <ul className="list-disc space-y-2 pl-6">
                     <li>
                       Your texting style is relatively stable (not drastically different across
-                      contacts or time periods). The tool computes per-contact stats but generates one
-                      global persona.
+                      contacts or time periods). The tool computes per-contact stats but generates
+                      one global persona.
                     </li>
                     <li>
                       WeChat message format is consistent (SQLite schema hasn&apos;t changed). Tool
@@ -179,17 +185,21 @@ export default function MethodsPage() {
                 </div>
 
                 <div>
-                  <h3 className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">Limitations</h3>
+                  <h3 className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">
+                    Limitations
+                  </h3>
                   <ul className="list-disc space-y-2 pl-6">
                     <li>
                       <strong className="text-zinc-900 dark:text-zinc-100">
                         Surface features only:
                       </strong>{' '}
-                      Captures <em>how</em> you text (length, emoji, language), not <em>what</em> you
-                      say (topics, opinions, personality). By design for privacy.
+                      Captures <em>how</em> you text (length, emoji, language), not <em>what</em>{' '}
+                      you say (topics, opinions, personality). By design for privacy.
                     </li>
                     <li>
-                      <strong className="text-zinc-900 dark:text-zinc-100">No semantic content:</strong>{' '}
+                      <strong className="text-zinc-900 dark:text-zinc-100">
+                        No semantic content:
+                      </strong>{' '}
                       The persona prompt won&apos;t know your knowledge, interests, or conversation
                       topics. It only replicates linguistic style.
                     </li>
@@ -208,7 +218,9 @@ export default function MethodsPage() {
                       message formats and would require adapters.
                     </li>
                     <li>
-                      <strong className="text-zinc-900 dark:text-zinc-100">Small sample size:</strong>{' '}
+                      <strong className="text-zinc-900 dark:text-zinc-100">
+                        Small sample size:
+                      </strong>{' '}
                       Synthetic personas have n=80–150 turns. Real validation would require larger
                       samples and human evaluation.
                     </li>
@@ -226,24 +238,26 @@ export default function MethodsPage() {
 
               <div className="space-y-4 text-zinc-700 dark:text-zinc-300">
                 <p>
-                  <strong className="text-zinc-900 dark:text-zinc-100">What AI Does:</strong> Optional
-                  BYOK (Bring Your Own Key) features allow visitors to test persona prompts and tune
-                  them interactively. AI is used for:
+                  <strong className="text-zinc-900 dark:text-zinc-100">What AI Does:</strong>{' '}
+                  Optional BYOK (Bring Your Own Key) features allow visitors to test persona prompts
+                  and tune them interactively. AI is used for:
                 </p>
 
                 <ul className="list-disc space-y-2 pl-6">
                   <li>
                     <strong className="text-zinc-900 dark:text-zinc-100">Persona testing:</strong>{' '}
-                    Generate sample responses using a persona prompt to verify linguistic consistency.
+                    Generate sample responses using a persona prompt to verify linguistic
+                    consistency.
                   </li>
                   <li>
-                    <strong className="text-zinc-900 dark:text-zinc-100">Prompt tuning:</strong> Adjust
-                    persona parameters (e.g., &quot;make more formal&quot;) and compare before/after
-                    outputs.
+                    <strong className="text-zinc-900 dark:text-zinc-100">Prompt tuning:</strong>{' '}
+                    Adjust persona parameters (e.g., &quot;make more formal&quot;) and compare
+                    before/after outputs.
                   </li>
                   <li>
-                    <strong className="text-zinc-900 dark:text-zinc-100">Persona matching:</strong> Match
-                    a visitor&apos;s self-reported texting habits to the closest synthetic persona.
+                    <strong className="text-zinc-900 dark:text-zinc-100">Persona matching:</strong>{' '}
+                    Match a visitor&apos;s self-reported texting habits to the closest synthetic
+                    persona.
                   </li>
                 </ul>
 
@@ -259,19 +273,21 @@ export default function MethodsPage() {
                 </ul>
 
                 <p>
-                  <strong className="text-zinc-900 dark:text-zinc-100">Data Sent to Providers:</strong>{' '}
+                  <strong className="text-zinc-900 dark:text-zinc-100">
+                    Data Sent to Providers:
+                  </strong>{' '}
                   When you use BYOK features, your browser sends:
                 </p>
 
                 <ul className="list-disc space-y-2 pl-6 text-sm">
                   <li>
                     <strong>To Anthropic/OpenAI:</strong> Your prompt + persona prompt + test input
-                    (e.g., &quot;How was your day?&quot;). Your API key authenticates the request. Data
-                    is subject to the provider&apos;s privacy policy.
+                    (e.g., &quot;How was your day?&quot;). Your API key authenticates the request.
+                    Data is subject to the provider&apos;s privacy policy.
                   </li>
                   <li>
-                    <strong>NOT sent:</strong> Your API key is never sent to our server. All calls go
-                    directly from your browser to the AI provider (CORS enabled via{' '}
+                    <strong>NOT sent:</strong> Your API key is never sent to our server. All calls
+                    go directly from your browser to the AI provider (CORS enabled via{' '}
                     <code className="rounded bg-zinc-100 px-2 py-1 dark:bg-zinc-900">
                       anthropic-dangerous-direct-browser-access: true
                     </code>{' '}
@@ -280,16 +296,19 @@ export default function MethodsPage() {
                 </ul>
 
                 <p>
-                  <strong className="text-zinc-900 dark:text-zinc-100">Human-in-the-Loop:</strong> All
-                  AI outputs are labeled &quot;AI-generated&quot;. Every interaction is logged in an
-                  audit trail (stored locally in IndexedDB) with your decision: accepted / edited /
-                  rejected.
+                  <strong className="text-zinc-900 dark:text-zinc-100">Human-in-the-Loop:</strong>{' '}
+                  All AI outputs are labeled &quot;AI-generated&quot;. Every interaction is logged
+                  in an audit trail (stored locally in IndexedDB) with your decision: accepted /
+                  edited / rejected.
                 </p>
 
                 <p>
-                  <strong className="text-zinc-900 dark:text-zinc-100">Audit Trail:</strong> View all
-                  AI interactions at <Link href="/ai-log" className="text-[--color-wechat-green] underline">/ai-log</Link>. Export
-                  as JSON or CSV. Clear anytime.
+                  <strong className="text-zinc-900 dark:text-zinc-100">Audit Trail:</strong> View
+                  all AI interactions at{' '}
+                  <Link href="/ai-log" className="text-[--color-wechat-green] underline">
+                    /ai-log
+                  </Link>
+                  . Export as JSON or CSV. Clear anytime.
                 </p>
               </div>
             </section>

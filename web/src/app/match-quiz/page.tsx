@@ -20,7 +20,7 @@ const PERSONAS = [
   { id: 'expressive_english', name: 'Expressive English' },
   { id: 'balanced_bilingual', name: 'Balanced Bilingual' },
   { id: 'emoji_enthusiast', name: 'Emoji Enthusiast' },
-  { id: 'technical_researcher', name: 'Technical Researcher' }
+  { id: 'technical_researcher', name: 'Technical Researcher' },
 ];
 
 export default function MatchQuizPage() {
@@ -36,8 +36,8 @@ export default function MatchQuizPage() {
         { label: 'Very short (5-15 characters)', value: 10 },
         { label: 'Short (15-30 characters)', value: 22 },
         { label: 'Medium (30-50 characters)', value: 40 },
-        { label: 'Long (50-80 characters)', value: 65 }
-      ]
+        { label: 'Long (50-80 characters)', value: 65 },
+      ],
     },
     {
       key: 'emojiRate' as keyof QuizState,
@@ -46,19 +46,20 @@ export default function MatchQuizPage() {
         { label: 'Rarely (almost never)', value: 0.05 },
         { label: 'Sometimes (1 per 5-10 messages)', value: 0.15 },
         { label: 'Often (1 per 2-3 messages)', value: 0.35 },
-        { label: 'Very often (multiple per message)', value: 0.7 }
-      ]
+        { label: 'Very often (multiple per message)', value: 0.7 },
+      ],
     },
     {
       key: 'latinShare' as keyof QuizState,
-      question: 'How much English do you mix in? (If you mostly text in English, select "Almost all")',
+      question:
+        'How much English do you mix in? (If you mostly text in English, select "Almost all")',
       options: [
         { label: 'None (Chinese only)', value: 0.0 },
         { label: 'A little (10-20%)', value: 0.15 },
         { label: 'Balanced (40-60%)', value: 0.5 },
         { label: 'Mostly English (70-90%)', value: 0.8 },
-        { label: 'Almost all (English only)', value: 1.0 }
-      ]
+        { label: 'Almost all (English only)', value: 1.0 },
+      ],
     },
     {
       key: 'bubblesPerTurn' as keyof QuizState,
@@ -66,8 +67,8 @@ export default function MatchQuizPage() {
       options: [
         { label: 'One message (1 bubble)', value: 1.0 },
         { label: 'Sometimes split (1.5 bubbles)', value: 1.5 },
-        { label: 'Often split (2-3 bubbles)', value: 2.5 }
-      ]
+        { label: 'Often split (2-3 bubbles)', value: 2.5 },
+      ],
     },
     {
       key: 'laughterRate' as keyof QuizState,
@@ -76,9 +77,9 @@ export default function MatchQuizPage() {
         { label: 'Rarely', value: 0.1 },
         { label: 'Sometimes (1 per 3-5 messages)', value: 0.3 },
         { label: 'Often (1 per 2 messages)', value: 0.5 },
-        { label: 'Very often (almost every message)', value: 0.85 }
-      ]
-    }
+        { label: 'Very often (almost every message)', value: 0.85 },
+      ],
+    },
   ];
 
   const currentQuestion = questions[step];
@@ -100,7 +101,7 @@ export default function MatchQuizPage() {
     const response = await fetch('/api/match-persona', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(profile)
+      body: JSON.stringify(profile),
     });
 
     const data = await response.json();
@@ -133,7 +134,9 @@ export default function MatchQuizPage() {
               <div className="rounded-lg border bg-white p-8 dark:border-zinc-800 dark:bg-zinc-950">
                 <div className="mb-6">
                   <div className="mb-2 flex justify-between text-sm text-zinc-600 dark:text-zinc-400">
-                    <span>Question {step + 1} of {questions.length}</span>
+                    <span>
+                      Question {step + 1} of {questions.length}
+                    </span>
                     <span>{Math.round(((step + 1) / questions.length) * 100)}%</span>
                   </div>
                   <div className="h-2 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
@@ -176,7 +179,7 @@ export default function MatchQuizPage() {
                     You&apos;re most similar to:
                   </div>
                   <div className="mb-3 text-3xl font-bold text-[--color-wechat-green]">
-                    {PERSONAS.find(p => p.id === result.personaId)?.name}
+                    {PERSONAS.find((p) => p.id === result.personaId)?.name}
                   </div>
                   <div className="text-sm">
                     <span className="text-zinc-600 dark:text-zinc-400">Similarity score: </span>

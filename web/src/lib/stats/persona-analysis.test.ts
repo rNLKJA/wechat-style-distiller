@@ -6,7 +6,7 @@ import {
   computeDistinctiveness,
   computeFeatureVariance,
   matchToPersona,
-  type PersonaFeatureVector
+  type PersonaFeatureVector,
 } from './persona-analysis';
 import type { PersonaStats } from '../types';
 
@@ -26,7 +26,7 @@ describe('extractFeatures', () => {
       top_closers: [],
       active_hours_utc: {},
       by_contact: {},
-      engine: 'test'
+      engine: 'test',
     };
 
     const vector = extractFeatures('test-persona', stats);
@@ -45,7 +45,14 @@ describe('cosineSimilarity', () => {
   it('returns 1 for identical vectors', () => {
     const vector: PersonaFeatureVector = {
       personaId: 'a',
-      features: { avgLength: 20, emojiRate: 0.3, latinShare: 0.4, bubblesPerTurn: 1.5, laughterRate: 0.5, noPunctRate: 0.7 }
+      features: {
+        avgLength: 20,
+        emojiRate: 0.3,
+        latinShare: 0.4,
+        bubblesPerTurn: 1.5,
+        laughterRate: 0.5,
+        noPunctRate: 0.7,
+      },
     };
 
     expect(cosineSimilarity(vector, vector)).toBeCloseTo(1, 5);
@@ -54,11 +61,25 @@ describe('cosineSimilarity', () => {
   it('returns 0 for orthogonal vectors', () => {
     const a: PersonaFeatureVector = {
       personaId: 'a',
-      features: { avgLength: 1, emojiRate: 0, latinShare: 0, bubblesPerTurn: 0, laughterRate: 0, noPunctRate: 0 }
+      features: {
+        avgLength: 1,
+        emojiRate: 0,
+        latinShare: 0,
+        bubblesPerTurn: 0,
+        laughterRate: 0,
+        noPunctRate: 0,
+      },
     };
     const b: PersonaFeatureVector = {
       personaId: 'b',
-      features: { avgLength: 0, emojiRate: 1, latinShare: 0, bubblesPerTurn: 0, laughterRate: 0, noPunctRate: 0 }
+      features: {
+        avgLength: 0,
+        emojiRate: 1,
+        latinShare: 0,
+        bubblesPerTurn: 0,
+        laughterRate: 0,
+        noPunctRate: 0,
+      },
     };
 
     expect(cosineSimilarity(a, b)).toBe(0);
@@ -67,11 +88,25 @@ describe('cosineSimilarity', () => {
   it('computes similarity for typical personas', () => {
     const a: PersonaFeatureVector = {
       personaId: 'a',
-      features: { avgLength: 20, emojiRate: 0.3, latinShare: 0.4, bubblesPerTurn: 1.5, laughterRate: 0.5, noPunctRate: 0.7 }
+      features: {
+        avgLength: 20,
+        emojiRate: 0.3,
+        latinShare: 0.4,
+        bubblesPerTurn: 1.5,
+        laughterRate: 0.5,
+        noPunctRate: 0.7,
+      },
     };
     const b: PersonaFeatureVector = {
       personaId: 'b',
-      features: { avgLength: 25, emojiRate: 0.2, latinShare: 0.5, bubblesPerTurn: 1.8, laughterRate: 0.4, noPunctRate: 0.6 }
+      features: {
+        avgLength: 25,
+        emojiRate: 0.2,
+        latinShare: 0.5,
+        bubblesPerTurn: 1.8,
+        laughterRate: 0.4,
+        noPunctRate: 0.6,
+      },
     };
 
     const sim = cosineSimilarity(a, b);
@@ -83,9 +118,39 @@ describe('cosineSimilarity', () => {
 describe('computePairwiseSimilarities', () => {
   it('computes all pairs and sorts ascending', () => {
     const personas: PersonaFeatureVector[] = [
-      { personaId: 'a', features: { avgLength: 10, emojiRate: 0.1, latinShare: 0.2, bubblesPerTurn: 1.0, laughterRate: 0.3, noPunctRate: 0.5 } },
-      { personaId: 'b', features: { avgLength: 11, emojiRate: 0.12, latinShare: 0.22, bubblesPerTurn: 1.1, laughterRate: 0.32, noPunctRate: 0.52 } },
-      { personaId: 'c', features: { avgLength: 50, emojiRate: 0.8, latinShare: 0.9, bubblesPerTurn: 3.0, laughterRate: 0.1, noPunctRate: 0.1 } }
+      {
+        personaId: 'a',
+        features: {
+          avgLength: 10,
+          emojiRate: 0.1,
+          latinShare: 0.2,
+          bubblesPerTurn: 1.0,
+          laughterRate: 0.3,
+          noPunctRate: 0.5,
+        },
+      },
+      {
+        personaId: 'b',
+        features: {
+          avgLength: 11,
+          emojiRate: 0.12,
+          latinShare: 0.22,
+          bubblesPerTurn: 1.1,
+          laughterRate: 0.32,
+          noPunctRate: 0.52,
+        },
+      },
+      {
+        personaId: 'c',
+        features: {
+          avgLength: 50,
+          emojiRate: 0.8,
+          latinShare: 0.9,
+          bubblesPerTurn: 3.0,
+          laughterRate: 0.1,
+          noPunctRate: 0.1,
+        },
+      },
     ];
 
     const similarities = computePairwiseSimilarities(personas);
@@ -99,9 +164,39 @@ describe('computePairwiseSimilarities', () => {
 describe('computeDistinctiveness', () => {
   it('assigns higher score to more unique personas', () => {
     const personas: PersonaFeatureVector[] = [
-      { personaId: 'typical1', features: { avgLength: 20, emojiRate: 0.3, latinShare: 0.4, bubblesPerTurn: 1.5, laughterRate: 0.5, noPunctRate: 0.7 } },
-      { personaId: 'typical2', features: { avgLength: 22, emojiRate: 0.32, latinShare: 0.42, bubblesPerTurn: 1.6, laughterRate: 0.52, noPunctRate: 0.72 } },
-      { personaId: 'outlier', features: { avgLength: 100, emojiRate: 0.0, latinShare: 1.0, bubblesPerTurn: 5.0, laughterRate: 0.0, noPunctRate: 0.0 } }
+      {
+        personaId: 'typical1',
+        features: {
+          avgLength: 20,
+          emojiRate: 0.3,
+          latinShare: 0.4,
+          bubblesPerTurn: 1.5,
+          laughterRate: 0.5,
+          noPunctRate: 0.7,
+        },
+      },
+      {
+        personaId: 'typical2',
+        features: {
+          avgLength: 22,
+          emojiRate: 0.32,
+          latinShare: 0.42,
+          bubblesPerTurn: 1.6,
+          laughterRate: 0.52,
+          noPunctRate: 0.72,
+        },
+      },
+      {
+        personaId: 'outlier',
+        features: {
+          avgLength: 100,
+          emojiRate: 0.0,
+          latinShare: 1.0,
+          bubblesPerTurn: 5.0,
+          laughterRate: 0.0,
+          noPunctRate: 0.0,
+        },
+      },
     ];
 
     const distinctiveness = computeDistinctiveness(personas);
@@ -115,9 +210,39 @@ describe('computeDistinctiveness', () => {
 describe('computeFeatureVariance', () => {
   it('computes mean, variance, and CI', () => {
     const personas: PersonaFeatureVector[] = [
-      { personaId: 'a', features: { avgLength: 10, emojiRate: 0.1, latinShare: 0.2, bubblesPerTurn: 1.0, laughterRate: 0.3, noPunctRate: 0.5 } },
-      { personaId: 'b', features: { avgLength: 20, emojiRate: 0.2, latinShare: 0.3, bubblesPerTurn: 1.5, laughterRate: 0.4, noPunctRate: 0.6 } },
-      { personaId: 'c', features: { avgLength: 30, emojiRate: 0.3, latinShare: 0.4, bubblesPerTurn: 2.0, laughterRate: 0.5, noPunctRate: 0.7 } }
+      {
+        personaId: 'a',
+        features: {
+          avgLength: 10,
+          emojiRate: 0.1,
+          latinShare: 0.2,
+          bubblesPerTurn: 1.0,
+          laughterRate: 0.3,
+          noPunctRate: 0.5,
+        },
+      },
+      {
+        personaId: 'b',
+        features: {
+          avgLength: 20,
+          emojiRate: 0.2,
+          latinShare: 0.3,
+          bubblesPerTurn: 1.5,
+          laughterRate: 0.4,
+          noPunctRate: 0.6,
+        },
+      },
+      {
+        personaId: 'c',
+        features: {
+          avgLength: 30,
+          emojiRate: 0.3,
+          latinShare: 0.4,
+          bubblesPerTurn: 2.0,
+          laughterRate: 0.5,
+          noPunctRate: 0.7,
+        },
+      },
     ];
 
     const result = computeFeatureVariance(personas, 'avgLength', 12345);
@@ -132,9 +257,39 @@ describe('computeFeatureVariance', () => {
 describe('matchToPersona', () => {
   it('matches user profile to closest persona', () => {
     const personas: PersonaFeatureVector[] = [
-      { personaId: 'short', features: { avgLength: 10, emojiRate: 0.1, latinShare: 0.1, bubblesPerTurn: 1.0, laughterRate: 0.2, noPunctRate: 0.5 } },
-      { personaId: 'medium', features: { avgLength: 25, emojiRate: 0.3, latinShare: 0.4, bubblesPerTurn: 1.5, laughterRate: 0.5, noPunctRate: 0.7 } },
-      { personaId: 'long', features: { avgLength: 60, emojiRate: 0.1, latinShare: 0.8, bubblesPerTurn: 1.2, laughterRate: 0.1, noPunctRate: 0.2 } }
+      {
+        personaId: 'short',
+        features: {
+          avgLength: 10,
+          emojiRate: 0.1,
+          latinShare: 0.1,
+          bubblesPerTurn: 1.0,
+          laughterRate: 0.2,
+          noPunctRate: 0.5,
+        },
+      },
+      {
+        personaId: 'medium',
+        features: {
+          avgLength: 25,
+          emojiRate: 0.3,
+          latinShare: 0.4,
+          bubblesPerTurn: 1.5,
+          laughterRate: 0.5,
+          noPunctRate: 0.7,
+        },
+      },
+      {
+        personaId: 'long',
+        features: {
+          avgLength: 60,
+          emojiRate: 0.1,
+          latinShare: 0.8,
+          bubblesPerTurn: 1.2,
+          laughterRate: 0.1,
+          noPunctRate: 0.2,
+        },
+      },
     ];
 
     const userProfile = {
@@ -142,7 +297,7 @@ describe('matchToPersona', () => {
       emojiRate: 0.32,
       latinShare: 0.42,
       bubblesPerTurn: 1.6,
-      laughterRate: 0.48
+      laughterRate: 0.48,
     };
 
     const matches = matchToPersona(userProfile, personas);

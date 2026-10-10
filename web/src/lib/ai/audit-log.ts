@@ -141,15 +141,18 @@ export async function exportAuditLogAsCSV(): Promise<string> {
     return 'id,timestamp,feature,provider,model,latency_ms,input_tokens,output_tokens,human_decision\n';
   }
 
-  const headers = 'id,timestamp,feature,provider,model,latency_ms,input_tokens,output_tokens,human_decision\n';
-  const rows = entries.map(e => {
-    const timestamp = new Date(e.timestamp).toISOString();
-    const inputTokens = e.usage?.input_tokens ?? '';
-    const outputTokens = e.usage?.output_tokens ?? '';
-    const decision = e.human_decision ?? '';
+  const headers =
+    'id,timestamp,feature,provider,model,latency_ms,input_tokens,output_tokens,human_decision\n';
+  const rows = entries
+    .map((e) => {
+      const timestamp = new Date(e.timestamp).toISOString();
+      const inputTokens = e.usage?.input_tokens ?? '';
+      const outputTokens = e.usage?.output_tokens ?? '';
+      const decision = e.human_decision ?? '';
 
-    return `${e.id},"${timestamp}","${e.feature}","${e.provider}","${e.model}",${e.latency_ms},${inputTokens},${outputTokens},"${decision}"`;
-  }).join('\n');
+      return `${e.id},"${timestamp}","${e.feature}","${e.provider}","${e.model}",${e.latency_ms},${inputTokens},${outputTokens},"${decision}"`;
+    })
+    .join('\n');
 
   return headers + rows;
 }

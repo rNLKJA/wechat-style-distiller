@@ -19,10 +19,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Load all personas
-    const personas = await Promise.all(PERSONA_IDS.map(id => loadPersona(id)));
+    const personas = await Promise.all(PERSONA_IDS.map((id) => loadPersona(id)));
 
     // Extract feature vectors
-    const featureVectors = personas.map(p => extractFeatures(p.metadata.id, p.stats));
+    const featureVectors = personas.map((p) => extractFeatures(p.metadata.id, p.stats));
 
     // Match user profile
     const matches = matchToPersona(

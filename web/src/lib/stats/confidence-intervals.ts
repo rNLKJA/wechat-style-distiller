@@ -27,10 +27,7 @@ export function wilsonCI(
   const center = (p + z2 / (2 * n)) / denominator;
   const margin = (z / denominator) * Math.sqrt((p * (1 - p)) / n + z2 / (4 * n * n));
 
-  return [
-    Math.max(0, center - margin),
-    Math.min(1, center + margin)
-  ];
+  return [Math.max(0, center - margin), Math.min(1, center + margin)];
 }
 
 /**
@@ -39,12 +36,12 @@ export function wilsonCI(
 function getZScore(confidence: number): number {
   // Common confidence levels
   const zScores: Record<number, number> = {
-    0.90: 1.645,
-    0.95: 1.960,
-    0.99: 2.576
+    0.9: 1.645,
+    0.95: 1.96,
+    0.99: 2.576,
   };
 
-  return zScores[confidence] ?? 1.960;
+  return zScores[confidence] ?? 1.96;
 }
 
 /**
@@ -118,13 +115,11 @@ export const stats = {
   median: (data: number[]) => {
     const sorted = [...data].sort((a, b) => a - b);
     const mid = Math.floor(sorted.length / 2);
-    return sorted.length % 2 === 0
-      ? (sorted[mid - 1] + sorted[mid]) / 2
-      : sorted[mid];
+    return sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
   },
   stddev: (data: number[]) => {
     const mean = stats.mean(data);
     const variance = data.reduce((a, b) => a + (b - mean) ** 2, 0) / data.length;
     return Math.sqrt(variance);
-  }
+  },
 };

@@ -38,13 +38,13 @@ async function callAnthropic(
       'Content-Type': 'application/json',
       'x-api-key': apiKey,
       'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true'
+      'anthropic-dangerous-direct-browser-access': 'true',
     },
     body: JSON.stringify({
       model,
       messages,
-      max_tokens: 1024
-    })
+      max_tokens: 1024,
+    }),
   });
 
   if (!response.ok) {
@@ -58,8 +58,8 @@ async function callAnthropic(
     content: data.content[0].text,
     usage: {
       input_tokens: data.usage.input_tokens,
-      output_tokens: data.usage.output_tokens
-    }
+      output_tokens: data.usage.output_tokens,
+    },
   };
 }
 
@@ -75,13 +75,13 @@ async function callOpenAI(
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`
+      Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
       model,
       messages,
-      max_tokens: 1024
-    })
+      max_tokens: 1024,
+    }),
   });
 
   if (!response.ok) {
@@ -95,18 +95,15 @@ async function callOpenAI(
     content: data.choices[0].message.content,
     usage: {
       input_tokens: data.usage?.prompt_tokens,
-      output_tokens: data.usage?.completion_tokens
-    }
+      output_tokens: data.usage?.completion_tokens,
+    },
   };
 }
 
 /**
  * Unified AI client
  */
-export async function callAI(
-  messages: AIMessage[],
-  options: AIClientOptions
-): Promise<AIResponse> {
+export async function callAI(messages: AIMessage[], options: AIClientOptions): Promise<AIResponse> {
   const { provider, apiKey, model } = options;
 
   if (!apiKey) {
@@ -127,5 +124,5 @@ export async function callAI(
  */
 export const DEFAULT_MODELS = {
   anthropic: 'claude-3-5-haiku-20241022',
-  openai: 'gpt-4o-mini'
+  openai: 'gpt-4o-mini',
 } as const;

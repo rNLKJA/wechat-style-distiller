@@ -5,16 +5,16 @@ import { PERSONA_IDS, loadPersona } from '@/lib/personas';
 import {
   extractFeatures,
   computePairwiseSimilarities,
-  type PersonaFeatureVector
+  type PersonaFeatureVector,
 } from '@/lib/stats/persona-analysis';
 import Link from 'next/link';
 
 export default async function SimilarityPage() {
   // Load all personas
-  const personas = await Promise.all(PERSONA_IDS.map(id => loadPersona(id)));
+  const personas = await Promise.all(PERSONA_IDS.map((id) => loadPersona(id)));
 
   // Extract feature vectors
-  const featureVectors: PersonaFeatureVector[] = personas.map(p =>
+  const featureVectors: PersonaFeatureVector[] = personas.map((p) =>
     extractFeatures(p.metadata.id, p.stats)
   );
 
@@ -52,14 +52,14 @@ export default async function SimilarityPage() {
                       href={`/personas/${mostSimilar.personaA}`}
                       className="text-[--color-wechat-green] underline"
                     >
-                      {personas.find(p => p.metadata.id === mostSimilar.personaA)?.metadata.name}
+                      {personas.find((p) => p.metadata.id === mostSimilar.personaA)?.metadata.name}
                     </Link>
                     {' vs '}
                     <Link
                       href={`/personas/${mostSimilar.personaB}`}
                       className="text-[--color-wechat-green] underline"
                     >
-                      {personas.find(p => p.metadata.id === mostSimilar.personaB)?.metadata.name}
+                      {personas.find((p) => p.metadata.id === mostSimilar.personaB)?.metadata.name}
                     </Link>
                   </div>
                   <div className="font-mono text-2xl font-bold text-[--color-wechat-green]">
@@ -82,14 +82,14 @@ export default async function SimilarityPage() {
                       href={`/personas/${leastSimilar.personaA}`}
                       className="text-[--color-wechat-green] underline"
                     >
-                      {personas.find(p => p.metadata.id === leastSimilar.personaA)?.metadata.name}
+                      {personas.find((p) => p.metadata.id === leastSimilar.personaA)?.metadata.name}
                     </Link>
                     {' vs '}
                     <Link
                       href={`/personas/${leastSimilar.personaB}`}
                       className="text-[--color-wechat-green] underline"
                     >
-                      {personas.find(p => p.metadata.id === leastSimilar.personaB)?.metadata.name}
+                      {personas.find((p) => p.metadata.id === leastSimilar.personaB)?.metadata.name}
                     </Link>
                   </div>
                   <div className="font-mono text-2xl font-bold">
@@ -119,8 +119,8 @@ export default async function SimilarityPage() {
                   </thead>
                   <tbody>
                     {similarities.map((sim, idx) => {
-                      const personaA = personas.find(p => p.metadata.id === sim.personaA);
-                      const personaB = personas.find(p => p.metadata.id === sim.personaB);
+                      const personaA = personas.find((p) => p.metadata.id === sim.personaA);
+                      const personaB = personas.find((p) => p.metadata.id === sim.personaB);
                       const distance = 1 - sim.similarity;
 
                       return (
@@ -168,23 +168,33 @@ export default async function SimilarityPage() {
               </p>
 
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                <FeatureDimension name="Average Length" description="Mean message length in characters" />
+                <FeatureDimension
+                  name="Average Length"
+                  description="Mean message length in characters"
+                />
                 <FeatureDimension name="Emoji Rate" description="Emoji per turn" />
-                <FeatureDimension name="Latin Share" description="Proportion of Latin words (code-switching)" />
-                <FeatureDimension name="Bubbles Per Turn" description="Messages sent in each turn" />
+                <FeatureDimension
+                  name="Latin Share"
+                  description="Proportion of Latin words (code-switching)"
+                />
+                <FeatureDimension
+                  name="Bubbles Per Turn"
+                  description="Messages sent in each turn"
+                />
                 <FeatureDimension name="Laughter Rate" description="Laughter tokens per turn" />
-                <FeatureDimension name="No Punctuation Rate" description="Proportion of turns without end punctuation" />
+                <FeatureDimension
+                  name="No Punctuation Rate"
+                  description="Proportion of turns without end punctuation"
+                />
               </div>
 
               <div className="mt-6 rounded-lg border border-zinc-300 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900">
                 <h3 className="mb-3 font-semibold">Cosine Similarity Formula</h3>
-                <div className="font-mono text-sm">
-                  sim(A, B) = (A · B) / (||A|| × ||B||)
-                </div>
+                <div className="font-mono text-sm">sim(A, B) = (A · B) / (||A|| × ||B||)</div>
                 <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
-                  Cosine of the angle between two vectors. Range: -1 (opposite) to +1 (identical). All
-                  personas in this dataset have positive similarity (same general direction in feature
-                  space).
+                  Cosine of the angle between two vectors. Range: -1 (opposite) to +1 (identical).
+                  All personas in this dataset have positive similarity (same general direction in
+                  feature space).
                 </p>
               </div>
             </section>

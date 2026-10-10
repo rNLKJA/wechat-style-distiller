@@ -9,15 +9,15 @@ import {
   computeDistinctiveness,
   computeFeatureVariance,
   computeFeatureCorrelations,
-  type PersonaFeatureVector
+  type PersonaFeatureVector,
 } from '@/lib/stats/persona-analysis';
 
 export default async function ValidationPage() {
   // Load all personas
-  const personas = await Promise.all(PERSONA_IDS.map(id => loadPersona(id)));
+  const personas = await Promise.all(PERSONA_IDS.map((id) => loadPersona(id)));
 
   // Extract feature vectors
-  const featureVectors: PersonaFeatureVector[] = personas.map(p =>
+  const featureVectors: PersonaFeatureVector[] = personas.map((p) =>
     extractFeatures(p.metadata.id, p.stats)
   );
 
@@ -30,7 +30,7 @@ export default async function ValidationPage() {
     latinShare: computeFeatureVariance(featureVectors, 'latinShare', 44),
     bubblesPerTurn: computeFeatureVariance(featureVectors, 'bubblesPerTurn', 45),
     laughterRate: computeFeatureVariance(featureVectors, 'laughterRate', 46),
-    noPunctRate: computeFeatureVariance(featureVectors, 'noPunctRate', 47)
+    noPunctRate: computeFeatureVariance(featureVectors, 'noPunctRate', 47),
   };
   const correlations = computeFeatureCorrelations(featureVectors);
 
@@ -55,8 +55,8 @@ export default async function ValidationPage() {
               </div>
 
               <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
-                Do the synthetic personas differ meaningfully? Higher variance indicates the personas
-                span a diverse range of linguistic patterns.
+                Do the synthetic personas differ meaningfully? Higher variance indicates the
+                personas span a diverse range of linguistic patterns.
               </p>
 
               <div className="grid gap-4 md:grid-cols-2">
@@ -115,7 +115,7 @@ export default async function ValidationPage() {
                   </thead>
                   <tbody>
                     {distinctiveness.map((entry, idx) => {
-                      const persona = personas.find(p => p.metadata.id === entry.personaId);
+                      const persona = personas.find((p) => p.metadata.id === entry.personaId);
                       return (
                         <tr key={entry.personaId} className="border-b dark:border-zinc-800">
                           <td className="py-3 pr-4 font-mono text-zinc-500">{idx + 1}</td>
@@ -139,8 +139,8 @@ export default async function ValidationPage() {
               </div>
 
               <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
-                Cosine similarity in 6-dimensional feature space. Lower values = more distinct persona
-                pairs.
+                Cosine similarity in 6-dimensional feature space. Lower values = more distinct
+                persona pairs.
               </p>
 
               <div className="overflow-x-auto">
@@ -154,8 +154,8 @@ export default async function ValidationPage() {
                   </thead>
                   <tbody>
                     {similarities.map((sim, idx) => {
-                      const personaA = personas.find(p => p.metadata.id === sim.personaA);
-                      const personaB = personas.find(p => p.metadata.id === sim.personaB);
+                      const personaA = personas.find((p) => p.metadata.id === sim.personaA);
+                      const personaB = personas.find((p) => p.metadata.id === sim.personaB);
                       return (
                         <tr key={idx} className="border-b dark:border-zinc-800">
                           <td className="py-3 pr-4">{personaA?.metadata.name}</td>
@@ -174,7 +174,8 @@ export default async function ValidationPage() {
               <h2 className="mb-6 text-2xl font-bold">Feature Correlation Matrix</h2>
 
               <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
-                Pearson correlation coefficients. Values near ±1 indicate strong linear relationships.
+                Pearson correlation coefficients. Values near ±1 indicate strong linear
+                relationships.
               </p>
 
               <div className="overflow-x-auto">
@@ -182,11 +183,8 @@ export default async function ValidationPage() {
                   <thead>
                     <tr>
                       <th className="border p-2 text-left dark:border-zinc-800"></th>
-                      {Object.keys(correlations).map(feature => (
-                        <th
-                          key={feature}
-                          className="border p-2 text-center dark:border-zinc-800"
-                        >
+                      {Object.keys(correlations).map((feature) => (
+                        <th key={feature} className="border p-2 text-center dark:border-zinc-800">
                           {feature.replace(/([A-Z])/g, ' $1').trim()}
                         </th>
                       ))}

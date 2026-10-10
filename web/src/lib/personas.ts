@@ -22,8 +22,12 @@ export async function loadPersona(id: PersonaId): Promise<Persona> {
   const basePath = path.join(process.cwd(), 'public', 'data', 'personas', id);
 
   const [metadata, stats, profile, prompt] = await Promise.all([
-    fs.readFile(path.join(basePath, 'metadata.json'), 'utf-8').then(JSON.parse) as Promise<PersonaMetadata>,
-    fs.readFile(path.join(basePath, 'stats.json'), 'utf-8').then(JSON.parse) as Promise<PersonaStats>,
+    fs
+      .readFile(path.join(basePath, 'metadata.json'), 'utf-8')
+      .then(JSON.parse) as Promise<PersonaMetadata>,
+    fs
+      .readFile(path.join(basePath, 'stats.json'), 'utf-8')
+      .then(JSON.parse) as Promise<PersonaStats>,
     fs.readFile(path.join(basePath, 'profile.md'), 'utf-8'),
     fs.readFile(path.join(basePath, 'persona_prompt.txt'), 'utf-8'),
   ]);

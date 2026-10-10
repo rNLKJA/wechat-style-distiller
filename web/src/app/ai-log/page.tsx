@@ -9,7 +9,7 @@ import {
   exportAuditLogAsJSON,
   exportAuditLogAsCSV,
   clearAuditLog,
-  type AIAuditLogEntry
+  type AIAuditLogEntry,
 } from '@/lib/ai/audit-log';
 
 export default function AILogPage() {
@@ -132,7 +132,7 @@ export default function AILogPage() {
                   {entries.length} {entries.length === 1 ? 'entry' : 'entries'} recorded
                 </div>
 
-                {entries.map(entry => (
+                {entries.map((entry) => (
                   <div
                     key={entry.id}
                     className="rounded-lg border bg-white p-6 dark:border-zinc-800 dark:bg-zinc-950"
@@ -162,7 +162,9 @@ export default function AILogPage() {
 
                     <div className="space-y-3 text-sm">
                       <div>
-                        <div className="mb-1 font-medium text-zinc-700 dark:text-zinc-300">Input:</div>
+                        <div className="mb-1 font-medium text-zinc-700 dark:text-zinc-300">
+                          Input:
+                        </div>
                         <div className="rounded bg-zinc-50 p-3 font-mono text-xs dark:bg-zinc-900">
                           {entry.input.length > 200
                             ? entry.input.substring(0, 200) + '...'
@@ -209,18 +211,13 @@ export default function AILogPage() {
             <div className="mt-8 rounded-lg border border-[--color-wechat-green]/30 bg-[--color-wechat-green]/5 p-6">
               <h3 className="mb-3 font-semibold">About This Log</h3>
               <ul className="space-y-2 text-sm text-zinc-700 dark:text-zinc-300">
+                <li>• Stored locally in IndexedDB (your browser). Never sent to our servers.</li>
                 <li>
-                  • Stored locally in IndexedDB (your browser). Never sent to our servers.
+                  • API keys are NOT logged (only provider, model, and input/output text are
+                  stored).
                 </li>
-                <li>
-                  • API keys are NOT logged (only provider, model, and input/output text are stored).
-                </li>
-                <li>
-                  • Export to JSON/CSV for your own records or analysis.
-                </li>
-                <li>
-                  • Clear anytime. This does not affect your API key settings.
-                </li>
+                <li>• Export to JSON/CSV for your own records or analysis.</li>
+                <li>• Clear anytime. This does not affect your API key settings.</li>
               </ul>
             </div>
           </div>

@@ -7,7 +7,7 @@ import path from 'path';
 const DECISION_RECORDS: Record<string, string> = {
   '001': 'DR-001-local-first-architecture.md',
   '002': 'DR-002-synthetic-demo-data.md',
-  '003': 'DR-003-feature-selection.md'
+  '003': 'DR-003-feature-selection.md',
 };
 
 interface DecisionPageProps {
@@ -15,7 +15,7 @@ interface DecisionPageProps {
 }
 
 export async function generateStaticParams() {
-  return Object.keys(DECISION_RECORDS).map(id => ({ id }));
+  return Object.keys(DECISION_RECORDS).map((id) => ({ id }));
 }
 
 export default async function DecisionPage({ params }: DecisionPageProps) {
@@ -77,7 +77,7 @@ function renderMarkdown(md: string): string {
   html = html.replace(/^(\d+)\. (.+)$/gm, '<li>$2</li>');
 
   // Wrap consecutive <li> in <ul>
-  html = html.replace(/(<li>.*<\/li>\n?)+/g, match => `<ul>${match}</ul>`);
+  html = html.replace(/(<li>.*<\/li>\n?)+/g, (match) => `<ul>${match}</ul>`);
 
   // Paragraphs (lines not already in tags)
   html = html.replace(/^(?!<[hul]|<\/[hul]|<li|<\/li)(.+)$/gm, '<p>$1</p>');
@@ -88,7 +88,7 @@ function renderMarkdown(md: string): string {
     const cellTags = cells.map((cell: string) => `<td>${cell}</td>`).join('');
     return `<tr>${cellTags}</tr>`;
   });
-  html = html.replace(/(<tr>.*<\/tr>\n?)+/g, match => `<table>${match}</table>`);
+  html = html.replace(/(<tr>.*<\/tr>\n?)+/g, (match) => `<table>${match}</table>`);
 
   return html;
 }

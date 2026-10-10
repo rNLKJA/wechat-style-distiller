@@ -29,8 +29,8 @@ export function extractFeatures(personaId: string, stats: PersonaStats): Persona
       latinShare: stats.code_switching.latin_share,
       bubblesPerTurn: stats.bubbles_per_turn.mean,
       laughterRate: stats.laughter_per_turn,
-      noPunctRate: stats.punctuation.no_end_punct_turns / stats.n_turns
-    }
+      noPunctRate: stats.punctuation.no_end_punct_turns / stats.n_turns,
+    },
   };
 }
 
@@ -64,7 +64,7 @@ export function computePairwiseSimilarities(
       results.push({
         personaA: personas[i].personaId,
         personaB: personas[j].personaId,
-        similarity
+        similarity,
       });
     }
   }
@@ -79,17 +79,19 @@ export function computePairwiseSimilarities(
 export function computeDistinctiveness(
   personas: PersonaFeatureVector[]
 ): Array<{ personaId: string; distinctiveness: number }> {
-  return personas.map(persona => {
-    const similarities = personas
-      .filter(other => other.personaId !== persona.personaId)
-      .map(other => cosineSimilarity(persona, other));
+  return personas
+    .map((persona) => {
+      const similarities = personas
+        .filter((other) => other.personaId !== persona.personaId)
+        .map((other) => cosineSimilarity(persona, other));
 
-    // Distinctiveness = 1 - average similarity to others
-    const avgSimilarity = similarities.reduce((a, b) => a + b, 0) / similarities.length;
-    const distinctiveness = 1 - avgSimilarity;
+      // Distinctiveness = 1 - average similarity to others
+      const avgSimilarity = similarities.reduce((a, b) => a + b, 0) / similarities.length;
+      const distinctiveness = 1 - avgSimilarity;
 
-    return { personaId: persona.personaId, distinctiveness };
-  }).sort((a, b) => b.distinctiveness - a.distinctiveness);
+      return { personaId: persona.personaId, distinctiveness };
+    })
+    .sort((a, b) => b.distinctiveness - a.distinctiveness);
 }
 
 /**
@@ -101,7 +103,7 @@ export function computeFeatureVariance(
   featureName: keyof PersonaFeatureVector['features'],
   seed: number = 42
 ): { mean: number; variance: number; ci: [number, number] } {
-  const values = personas.map(p => p.features[featureName]);
+  const values = personas.map((p) => p.features[featureName]);
 
   const mean = stats.mean(values);
   const variance = values.reduce((sum, val) => sum + (val - mean) ** 2, 0) / values.length;
@@ -116,15 +118,17 @@ export function computeFeatureVariance(
 export function computeFeatureCorrelations(
   personas: PersonaFeatureVector[]
 ): Record<string, Record<string, number>> {
-  const featureNames = Object.keys(personas[0].features) as Array<keyof PersonaFeatureVector['features']>;
+  const featureNames = Object.keys(personas[0].features) as Array<
+    keyof PersonaFeatureVector['features']
+  >;
   const correlations: Record<string, Record<string, number>> = {};
 
   for (const feature1 of featureNames) {
     correlations[feature1] = {};
 
     for (const feature2 of featureNames) {
-      const values1 = personas.map(p => p.features[feature1]);
-      const values2 = personas.map(p => p.features[feature2]);
+      const values1 = personas.map((p) => p.features[feature1]);
+      const values2 = personas.map((p) => p.features[feature2]);
 
       correlations[feature1][feature2] = pearsonCorrelation(values1, values2);
     }
@@ -177,12 +181,12 @@ export function matchToPersona(
     personaId: 'user',
     features: {
       ...userProfile,
-      noPunctRate: 0.5 // Default assumption
-    }
+      noPunctRate: 0.5, // Default assumption
+    },
   };
 
   return personas
-    .map(persona => {
+    .map((persona) => {
       const similarity = cosineSimilarity(userVector, persona);
       const distance = euclideanDistance(userVector, persona);
 
