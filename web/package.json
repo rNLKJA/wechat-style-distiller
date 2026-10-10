@@ -14,7 +14,8 @@
     "typecheck": "next typegen && tsc --noEmit",
     "test": "vitest run",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "showcase": "playwright test e2e/showcase.spec.ts"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -28,6 +29,7 @@
     "vitest": "^5.0.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.0",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

@@ -10,6 +10,63 @@ Turn your WeChat chat history into a linguistic style profile and a persona prom
 
 ---
 
+## Showcase
+
+![Explore Personas](docs/showcase/01-explore-personas.gif)
+
+### Feature Highlights
+
+<table>
+<tr>
+<td width="50%">
+<img src="docs/showcase/02-personas-gallery.png" alt="Persona Gallery" />
+<p><strong>Synthetic Persona Gallery</strong><br />6 pre-generated personas with varied linguistic patterns</p>
+</td>
+<td width="50%">
+<img src="docs/showcase/03-persona-detail.png" alt="Persona Detail" />
+<p><strong>Detailed Profiles</strong><br />Linguistic features, statistics, and generated prompts</p>
+</td>
+</tr>
+<tr>
+<td width="50%">
+<img src="docs/showcase/05-validation.png" alt="Feature Validation" />
+<p><strong>Statistical Validation</strong><br />Bootstrap CIs, inter-persona variance, rigorous evaluation</p>
+</td>
+<td width="50%">
+<img src="docs/showcase/06-privacy.png" alt="Privacy Threat Model" />
+<p><strong>Privacy & Governance</strong><br />Comprehensive threat analysis and mitigation checklist</p>
+</td>
+</tr>
+<tr>
+<td width="50%">
+<img src="docs/showcase/07-ai-log.png" alt="AI Audit Log" />
+<p><strong>AI Audit Log</strong><br />Full transparency for BYOK AI features with export</p>
+</td>
+<td width="50%">
+<img src="docs/showcase/08-mobile-landing.png" alt="Mobile View" />
+<p><strong>Responsive Design</strong><br />Works seamlessly on mobile devices</p>
+</td>
+</tr>
+</table>
+
+### Workflow Walkthroughs
+
+**1. Explore Personas** — Browse the synthetic persona collection, view detailed linguistic profiles and generated prompts, compare different communication styles.
+
+![Explore Personas Workflow](docs/showcase/01-explore-personas.gif)
+
+**2. Chat Like a Persona** — BYOK architecture for optional AI features: paste your own API key (Anthropic or OpenAI), test persona prompts interactively, view complete audit logs with transparency.
+
+![Chat Persona Workflow](docs/showcase/02-chat-persona.gif)
+
+**3. Privacy & Governance** — Review the comprehensive threat model, explore feature validation with confidence intervals, read architectural decision records with full rationale.
+
+![Privacy & Governance Workflow](docs/showcase/03-privacy-governance.gif)
+
+🎬 **[Interactive Tour](https://wechat-style-distiller-demo.vercel.app/tour)** — Watch video walkthroughs on the live site.
+
+---
+
 ## What This Project Is
 
 ### The Original Tool (in `original/`)
