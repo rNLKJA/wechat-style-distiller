@@ -32,6 +32,12 @@ A **Next.js methodology showcase** that demonstrates how the tool works using **
 - **Feature explainer**: Interactive breakdown of the 12+ features with examples
 - **Prompt engineering**: How linguistic features map to LLM instructions
 - **Privacy-first design**: Explains local-first processing and data flow
+- **Feature validation**: Statistical analysis with confidence intervals, inter-persona variance
+- **Persona similarity**: Pairwise comparisons in 6D feature space (cosine similarity)
+- **Matching quiz**: "Which persona are you?" — 5-question matcher
+- **Methods & decision records**: Methodology, assumptions, limitations, and architectural decisions
+- **AI audit log**: Transparency log for optional BYOK features (stored client-side)
+- **Decision records**: DR-001 (local-first), DR-002 (synthetic data), DR-003 (feature selection)
 
 ---
 
@@ -96,6 +102,8 @@ wechat-style-distiller/
 - **Icons**: [Lucide React](https://lucide.dev)
 - **Theme**: [next-themes](https://github.com/pacocoursey/next-themes) (light/dark mode)
 - **Testing**: [Vitest](https://vitest.dev)
+- **Statistics**: Bootstrap CIs, Wilson score intervals, cosine similarity
+- **AI Integration**: Optional BYOK (Anthropic/OpenAI), client-side only
 - **Deployment**: [Vercel](https://vercel.com) (free tier, static hosting)
 
 ---
@@ -224,12 +232,25 @@ These map to LLM instructions in the persona prompt, e.g.:
 
 ---
 
+## Career Positioning
+
+This project showcases **statistical rigour + GenAI governance**, aligning with target roles: Statistician / ML Engineer / Algorithm Engineer. Key demonstrations:
+
+- **Statistical depth**: Bootstrap CIs, Wilson score intervals, inter-persona variance, correlation matrices
+- **GenAI fluency with governance**: BYOK architecture, audit logs, transparency statements, privacy-first design
+- **Evaluation rigor**: Feature validation, persona distinctiveness metrics, pairwise similarity analysis
+- **Documentation**: Decision records (DR-001/002/003), methods page, AI use statement
+
+All confidence intervals computed with fixed seeds for reproducibility. No vanity metrics, no unsubstantiated claims.
+
 ## Links
 
 - 🌐 **Live Demo**: [wechat-style-distiller-demo.vercel.app](https://wechat-style-distiller-demo.vercel.app)
 - 📦 **GitHub**: [rNLKJA/wechat-style-distiller](https://github.com/rNLKJA/wechat-style-distiller)
 - 📖 **Tool Docs**: [original/README.md](original/README.md)
 - 🔒 **Privacy**: [Privacy page](https://wechat-style-distiller-demo.vercel.app/privacy)
+- 📊 **Validation**: [Feature Validation](https://wechat-style-distiller-demo.vercel.app/validation)
+- 📋 **Methods**: [Methodology & Decision Records](https://wechat-style-distiller-demo.vercel.app/methods)
 
 ---
 

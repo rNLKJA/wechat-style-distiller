@@ -1,0 +1,11 @@
+{
+  "id": "expressive_english",
+  "name": "Expressive English",
+  "description": "EN only, long messages (40-80 chars), reaction emoji, casual punctuation",
+  "characteristics": {
+    "avgLength": 60,
+    "codeSwitchRatio": 1.0,
+    "emojiRate": 0.25,
+    "style": "expressive_en"
+  }
+}

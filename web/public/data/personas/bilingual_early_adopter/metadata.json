@@ -1,0 +1,11 @@
+{
+  "id": "bilingual_early_adopter",
+  "name": "Bilingual Early Adopter",
+  "description": "Tech-savvy, EN/ZH code-switching 40%, emoji-heavy, casual tone",
+  "characteristics": {
+    "avgLength": 25,
+    "codeSwitchRatio": 0.4,
+    "emojiRate": 0.3,
+    "style": "casual_tech"
+  }
+}

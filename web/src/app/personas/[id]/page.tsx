@@ -97,7 +97,7 @@ export default async function PersonaDetailPage({ params }: PageProps) {
 
             {/* Key Metrics */}
             <section className="mb-12">
-              <h2 className="mb-4 text-2xl font-bold">Key Metrics</h2>
+              <h2 className="mb-6 mt-12 text-2xl font-bold md:text-3xl">Key Metrics</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <MetricCard
                   label="Emoji Usage"
@@ -131,7 +131,7 @@ export default async function PersonaDetailPage({ params }: PageProps) {
 
             {/* Profile */}
             <section className="mb-12">
-              <h2 className="mb-4 text-2xl font-bold">Style Profile</h2>
+              <h2 className="mb-6 mt-12 text-2xl font-bold md:text-3xl">Style Profile</h2>
               <div className="overflow-hidden rounded-lg border bg-white dark:border-zinc-800 dark:bg-zinc-950">
                 <div className="prose prose-zinc max-w-none p-6 dark:prose-invert prose-headings:mb-3 prose-headings:mt-6 prose-h1:text-2xl prose-h2:text-xl prose-p:my-2 prose-ul:my-3">
                   <pre className="whitespace-pre-wrap font-sans text-sm">{profile}</pre>
@@ -141,7 +141,7 @@ export default async function PersonaDetailPage({ params }: PageProps) {
 
             {/* Persona Prompt */}
             <section>
-              <h2 className="mb-4 text-2xl font-bold">Persona Prompt</h2>
+              <h2 className="mb-6 mt-12 text-2xl font-bold md:text-3xl">Persona Prompt</h2>
               <p className="mb-4 text-sm text-zinc-600 dark:text-zinc-400">
                 This system prompt encodes the linguistic style. Use it with any LLM (via API or
                 chat interface) to make it reply in this persona&apos;s voice.

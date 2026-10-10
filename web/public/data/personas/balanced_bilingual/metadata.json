@@ -1,0 +1,11 @@
+{
+  "id": "balanced_bilingual",
+  "name": "Balanced Bilingual",
+  "description": "EN/ZH 50/50, medium length, moderate emoji, professional tone",
+  "characteristics": {
+    "avgLength": 35,
+    "codeSwitchRatio": 0.5,
+    "emojiRate": 0.15,
+    "style": "professional"
+  }
+}

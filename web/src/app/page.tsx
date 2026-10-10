@@ -27,10 +27,10 @@ export default function Home() {
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/personas"
-                className="flex items-center justify-center gap-2 rounded-lg bg-[--color-wechat-green] px-6 py-3 font-medium text-white transition-opacity hover:opacity-90"
+                className="flex items-center justify-center gap-2 rounded-lg bg-[--color-wechat-green] px-6 py-3.5 text-lg font-medium text-white shadow-lg shadow-[--color-wechat-green]/20 transition-all hover:opacity-90 hover:shadow-xl hover:shadow-[--color-wechat-green]/30"
               >
                 Explore Personas
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-5 w-5" />
               </Link>
               <Link
                 href="/pipeline"
