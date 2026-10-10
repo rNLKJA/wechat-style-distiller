@@ -344,6 +344,12 @@ export default function MethodsPage() {
                   summary="Extract 12+ quantitative linguistic features (length, emoji, code-switching, etc.) rather than semantic embeddings or stylometric features."
                   href="/decisions/003"
                 />
+                <DecisionRecordCard
+                  id="004"
+                  title="Client-Side BYOK Architecture"
+                  summary="AI features use Bring-Your-Own-Key. API keys stay in browser storage, direct calls to providers, full audit trail in IndexedDB."
+                  href="/decisions/004"
+                />
               </div>
             </section>
           </div>

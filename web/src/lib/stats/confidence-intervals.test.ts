@@ -3,7 +3,9 @@ import { wilsonCI, bootstrapCI, stats } from './confidence-intervals';
 
 describe('wilsonCI', () => {
   it('computes correct CI for p=0.5, n=100', () => {
-    // Verified against scipy.stats.binomial
+    // Verified against scipy Wilson CI implementation
+    // Reference: scripts/verify_stats.py (run with: uv run --with scipy --with numpy scripts/verify_stats.py)
+    // Expected values computed 2024-01-15 via scipy manual Wilson formula
     const [lower, upper] = wilsonCI(50, 100, 0.95);
     expect(lower).toBeCloseTo(0.4038, 3);
     expect(upper).toBeCloseTo(0.5962, 3);

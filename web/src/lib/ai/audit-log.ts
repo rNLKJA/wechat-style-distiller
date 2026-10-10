@@ -1,6 +1,7 @@
 /**
  * AI audit logging for transparency and compliance
- * Stores all AI interactions client-side in IndexedDB
+ * Stores all AI interactions client-side in IndexedDB.
+ * API keys are NEVER logged - only provider, model, input/output text, and usage metadata are stored.
  */
 
 export interface AIAuditLogEntry {
@@ -155,4 +156,19 @@ export async function exportAuditLogAsCSV(): Promise<string> {
     .join('\n');
 
   return headers + rows;
+}
+
+/**
+ * Log an AI interaction (convenience function)
+ */
+export async function logAIInteraction(
+  params: Omit<AIAuditLogEntry, 'id' | 'timestamp'>
+): Promise<void> {
+  const entry: AIAuditLogEntry = {
+    id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    timestamp: Date.now(),
+    ...params,
+  };
+
+  return addAuditLogEntry(entry);
 }

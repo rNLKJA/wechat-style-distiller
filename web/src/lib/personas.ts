@@ -2,17 +2,12 @@ import type { Persona, PersonaMetadata, PersonaStats } from './types';
 import { promises as fs } from 'fs';
 import path from 'path';
 
-// List of all available personas (must match generated data)
-export const PERSONA_IDS = [
-  'bilingual_early_adopter',
-  'concise_mandarin',
-  'expressive_english',
-  'balanced_bilingual',
-  'emoji_enthusiast',
-  'technical_researcher',
-] as const;
+// Re-export from constants file to avoid breaking existing imports
+export { PERSONA_IDS } from './persona-constants';
+export type { PersonaId } from './persona-constants';
 
-export type PersonaId = (typeof PERSONA_IDS)[number];
+import type { PersonaId } from './persona-constants';
+import { PERSONA_IDS as PERSONA_IDS_CONST } from './persona-constants';
 
 /**
  * Load a persona's data from the public directory.
@@ -40,7 +35,7 @@ export async function loadPersona(id: PersonaId): Promise<Persona> {
  */
 export async function loadAllPersonaMetadata(): Promise<PersonaMetadata[]> {
   const results = await Promise.all(
-    PERSONA_IDS.map(async (id) => {
+    PERSONA_IDS_CONST.map(async (id) => {
       const filePath = path.join(process.cwd(), 'public', 'data', 'personas', id, 'metadata.json');
       const content = await fs.readFile(filePath, 'utf-8');
       return JSON.parse(content) as PersonaMetadata;

@@ -8,12 +8,16 @@ import { useEffect, useState } from 'react';
 
 const navigation = [
   { name: 'Home', href: '/' },
+  { name: 'Tour', href: '/tour' },
   { name: 'Pipeline', href: '/pipeline' },
   { name: 'Personas', href: '/personas' },
   { name: 'Features', href: '/features' },
   { name: 'Validation', href: '/validation' },
   { name: 'Similarity', href: '/similarity' },
   { name: 'Match Quiz', href: '/match-quiz' },
+  { name: 'Prompt Test', href: '/prompt-effectiveness' },
+  { name: 'Persona Tuner', href: '/persona-tuner' },
+  { name: 'AI Log', href: '/ai-log' },
   { name: 'Methods', href: '/methods' },
   { name: 'Privacy', href: '/privacy' },
   { name: 'Install', href: '/install' },

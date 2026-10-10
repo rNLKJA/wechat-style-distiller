@@ -26,17 +26,17 @@ export default function Home() {
 
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link
-                href="/personas"
+                href="/tour"
                 className="flex items-center justify-center gap-2 rounded-lg bg-[--color-wechat-green] px-6 py-3.5 text-lg font-medium text-white shadow-lg shadow-[--color-wechat-green]/20 transition-all hover:opacity-90 hover:shadow-xl hover:shadow-[--color-wechat-green]/30"
               >
-                Explore Personas
+                Watch Tour
                 <ArrowRight className="h-5 w-5" />
               </Link>
               <Link
-                href="/pipeline"
+                href="/personas"
                 className="flex items-center justify-center gap-2 rounded-lg border border-zinc-300 bg-white px-6 py-3 font-medium transition-colors hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-800"
               >
-                See How It Works
+                Explore Personas
               </Link>
             </div>
           </div>
