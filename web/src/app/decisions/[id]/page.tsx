@@ -26,7 +26,7 @@ export default async function DecisionPage({ params }: DecisionPageProps) {
     notFound();
   }
 
-  const filePath = path.join(process.cwd(), '..', 'docs', 'decisions', filename);
+  const filePath = path.join(process.cwd(), 'public', 'decisions', filename);
   const content = await fs.readFile(filePath, 'utf-8');
 
   // Simple markdown rendering (headers, lists, bold, code)
