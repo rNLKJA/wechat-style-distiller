@@ -6,7 +6,7 @@
 
 Turn your WeChat chat history into a linguistic style profile and a persona prompt that makes any LLM reply in your voice. **Privacy-first**: all analysis runs locally, your chat data never leaves your machine.
 
-🔗 **[Live Demo](https://wechat-style-distiller-demo.vercel.app)** | 📖 **[Original Tool Documentation](original/README.md)**
+🔗 **[Live Demo](https://wechat-style-distiller-demo.vercel.app)** — Explore the methodology with synthetic personas | 📖 **[Original Tool Documentation](original/README.md)**
 
 ---
 
