@@ -33,8 +33,8 @@ export default function TourPage() {
                   <h2 className="text-2xl font-bold">Explore Personas</h2>
                 </div>
                 <p className="ml-11 text-zinc-600 dark:text-zinc-400">
-                  Browse the synthetic persona collection, view detailed linguistic profiles and generated
-                  prompts, compare different communication styles.
+                  Browse the synthetic persona collection, view detailed linguistic profiles and
+                  generated prompts, compare different communication styles.
                 </p>
               </div>
 
@@ -75,8 +75,9 @@ export default function TourPage() {
                   <h2 className="text-2xl font-bold">Chat Like a Persona (BYOK)</h2>
                 </div>
                 <p className="ml-11 text-zinc-600 dark:text-zinc-400">
-                  BYOK (Bring Your Own Key) architecture for optional AI features: paste your own API key
-                  (Anthropic or OpenAI), test persona prompts interactively, view complete audit logs.
+                  BYOK (Bring Your Own Key) architecture for optional AI features: paste your own
+                  API key (Anthropic or OpenAI), test persona prompts interactively, view complete
+                  audit logs.
                 </p>
               </div>
 
@@ -117,8 +118,8 @@ export default function TourPage() {
                   <h2 className="text-2xl font-bold">Privacy & Governance</h2>
                 </div>
                 <p className="ml-11 text-zinc-600 dark:text-zinc-400">
-                  Review the comprehensive threat model, explore feature validation with confidence intervals,
-                  read architectural decision records with full rationale.
+                  Review the comprehensive threat model, explore feature validation with confidence
+                  intervals, read architectural decision records with full rationale.
                 </p>
               </div>
 
@@ -186,12 +187,13 @@ export default function TourPage() {
             <section className="rounded-lg border bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900/50">
               <h3 className="mb-3 font-semibold">Accessibility</h3>
               <p className="mb-3 text-sm text-zinc-600 dark:text-zinc-400">
-                All videos include visible step captions for clarity. The written step lists above each video
-                provide the same information for screen reader users or those who prefer text.
+                All videos include visible step captions for clarity. The written step lists above
+                each video provide the same information for screen reader users or those who prefer
+                text.
               </p>
               <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                Videos are encoded with H.264 for broad compatibility and include poster frames for preview.
-                All controls are keyboard accessible.
+                Videos are encoded with H.264 for broad compatibility and include poster frames for
+                preview. All controls are keyboard accessible.
               </p>
             </section>
           </div>
