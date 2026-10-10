@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+/* Tailwind v4 @theme syntax - Turbopack parser warning is expected and harmless.
+   The CSS processes correctly via PostCSS. No action needed unless Next.js adds native support. */
 @theme {
   --color-wechat-green: #07c160;
   --color-wechat-bg: #ededed;

@@ -154,9 +154,9 @@ export default function MatchQuizPage() {
                     <button
                       key={idx}
                       onClick={() => handleAnswer(option.value)}
-                      className="w-full rounded-lg border border-zinc-300 bg-white p-4 text-left transition-all hover:border-[--color-wechat-green] hover:bg-[--color-wechat-green]/5 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-[--color-wechat-green]"
+                      className="w-full rounded-lg border border-zinc-300 bg-white p-4 text-left transition-all hover:scale-105 hover:border-[--color-wechat-green] hover:bg-[--color-wechat-green]/5 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-[--color-wechat-green]"
                     >
-                      {option.label}
+                      <span className="text-base font-medium">{option.label}</span>
                     </button>
                   ))}
                 </div>
